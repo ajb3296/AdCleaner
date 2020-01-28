@@ -10,26 +10,20 @@ import zipfile
 import shutil
 import socket
 import webbrowser
+import ctypes
 
 if __name__ == "__main__":
     
-    # 압축 상태 확인
+    # Check the status of the zip file
     if not os.path.exists("system/Adaway_for_Windows"):
         print("Please unzip the file properly and execute it.\n\nPress the ENTER key to exit the program.")
         os.system("pause")
         exit()
 
-    # 메인파일 버전
-    mainafw = "1.0"
+    # Main program version
+    version = "1.0"
 
-    if os.path.exists("system/ver"):
-        file = open("system/ver", "r", encoding = 'UTF-8')
-        version = file.read()
-        file.close()
-    else:
-        version = "*.*"
-
-    # 기본설정
+    # Default Settings
     os.system("title Adaway_for_Windows V.%s" %version)
     os.system("mode.com con cols=120 lines=40")
 
@@ -43,22 +37,36 @@ if __name__ == "__main__":
 
     language = "language"
 
+    if ctypes.windll.shell32.IsUserAnAdmin(): 
+        pass
+    else:
+        print("This program requires administrator privileges.\nPlease run the program again with administrative authority.")
+        os.system("pause")
+        exit()
+
     while True:
-        # 설정파일이 존재하지 않을 경우 언어 선택
+        # 설정 파일이 존재하지 않을 경우 언어 선택
         if not os.path.exists("setting.xml"):
-            print("""언어를 선택하세요
-Please select a language
-1. 한글 - Korean
-2. English - 영어
-""")
+            print("\nPlease select a language.\n")
+            for file in os.listdir("language"):
+                if file.endswith(".xml"):
+                    print(file)
 
-            language = input("<1/2> : ")
+            language = input("\nEnter file name excluding filename extension : ")
 
-            if language == '1' or language == 'ko' or language == '한글' or language == 'korean':
-                language = "ko"
-                break
-            elif language == '2' or language == 'en' or language == '영어' or language == "english":
-                language = "en"
+            if os.path.exists(language):
+                # Reading language file
+                file = open(language, "r", encoding = "UTF-8")
+                languagecode = file.read()
+                file.close()
+
+                # Make setting file
+                file = open("setting.xml", "w", encoding = 'UTF-8')
+                file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+                file.write("<!-- Language (언어) -->\n")
+                file.write("<language>%s</language>\n" %language)
+                file.close()
+
                 break
             else:
                 pass
@@ -134,8 +142,8 @@ Please select a language
     url = "https://newpremium.github.io/version/"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
-    rtit = soup.find("rtit")
-    rtit = rtit.get_text()
+    afw = soup.find("afw")
+    afw = afw.get_text()
     rtitdownload = soup.find("rtitdownload")
     url = rtitdownload.get_text()
     rtitpath1 = soup.find("rtitpath1")
@@ -148,7 +156,7 @@ Please select a language
     rtitmainlink = rtitmainlink.get_text()
 
     # 메인파일 버전 확인
-    if not rtitmainver == mainafw:
+    if not rtitmainver == version:
         if language == "ko":
             updatemsg = "메인 프로그램을 업데이트 해야 합니다. 3초후 다운로드 사이트로 이동합니다."
         else:
@@ -159,7 +167,7 @@ Please select a language
         exit()
 
     # 설치된 버전과 최신버전이 다를때
-    if not rtit == version:
+    if not afw == version:
         if language == "ko":
             updatemsg = "프로그램을 새 버전으로 업데이트 해야 합니다. 자동으로 업데이트가 진행됩니다."
         else:
@@ -192,7 +200,7 @@ Please select a language
 
         # 이전버전 다운로드 기록 저장 / 현재 버전 확인용
         file = open("system/ver", "w", encoding = 'UTF-8')
-        file.write(rtit)
+        file.write(afw)
         file.close()
 
         # 이전버전 경로저장 / 인터넷 연결 없을때 이용
