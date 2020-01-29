@@ -12,6 +12,17 @@ import socket
 import webbrowser
 import ctypes
 
+def hostdownload():
+    file = open("hosts/hosts", "w", encoding = 'UTF-8')
+    f = open(hostlist, 'r', encoding = 'UTF-8')
+    while True:
+        line = f.readline()
+        if not line: break
+        r = requests.get(line)
+        file.write("%s\n\n"r)
+    f.close()
+    file.close()
+
 if __name__ == "__main__":
     
     # Check the status of the zip file
@@ -22,6 +33,9 @@ if __name__ == "__main__":
 
     # Main program version
     version = "1.0"
+
+    # Host file list path setting
+    hostlist = "host_list.txt"
 
     # Default Settings
     os.system("title Adaway_for_Windows V.%s" %version)
@@ -85,13 +99,32 @@ if __name__ == "__main__":
         exit()
 
     else:
+
+
         # Reading language pack
         file = open("language/%s.xml" %language, "r", encoding = 'UTF-8')
         languagecode = file.read()
         file.close()
         soup = BeautifulSoup(languagecode, 'html.parser')
+        afwver = soup.find("afwver")
+        afwver = afwver.get_text()
+        if not afwver == version:
+            languageerror = soup.find("languageerror")
+            languageerror = languageerror.get_text()
+            print(languageerror)
+            os.system("pause")
+            exit()
+        nointernet = soup.find("nointernet")
+        nointernet = nointernet.get_text()
         verup = soup.find("verup")
         verup = verup.get_text()
+        status = soup.find("status")
+        status = status.get_text()
+        adawaylatest = soup.find("adawaylatest")
+        adawaylatest = adawaylatest.get_text()
+        adawayoff = soup.find("adawayoff")
+        adawayoff = adawayoff.get_text()
+
 
     # Check your internet connection
     ipaddress = socket.gethostbyname(socket.gethostname())
@@ -114,12 +147,49 @@ if __name__ == "__main__":
             webbrowser.open_new(afwdownload)
             exit()
 
-    # Pass the version check when there is no internet connection.
+    # When you are not connected to the Internet
     else:
-        pass
+        print(nointernet)
+        os.system("pause")
+        exit()
 
     # Start
-    print("기초 설정및 체크 완료")
+    file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
+    hosts = file.read()
+    file.close()
+    if not os.path.exist("backup/hosts"):
+        # Backup of existing 'C:\Windows\System32\drivers\etc\hosts' file on first run of the program
+        try:
+            shutil.rmtree('backup')
+        except FileNotFoundError:
+            pass
+        os.mkdir("backup")
+        file = open("backup/hosts", "w", encoding = 'UTF-8')
+        file.write(hosts)
+        file.close()
+
+    file = open("backup/hosts", "r", encoding = 'UTF-8')
+    backup = file.read()
+    file.close()
+    hostdownload()
+    if hosts == backup:
+        adawaystatus = adawayoff
+
+    file = open("hosts/hosts", "r", encoding = 'UTF-8')
+    latesthosts = file.read()
+    file.close()
+    elif latesthosts == backup:
+        adawaystatus = adawaylatest
+
+    else:
+        adawaystatus = adawaylatest
+
+
+
+    os.system("cls")
+    print("""------------------------------------------------------------------------------------------------------------------------
+%s : %s
+""" %(status, adawaystatus))
 
 # This program is not a module!
 else:
