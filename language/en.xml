@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For AfW V.1.0 -->
+<afwver>1.0</afwver>
+<languageerror>This language pack is not available due to version compatibility issues with the program.</languageerror>
+
+<language>en</language>
+
+<nointernet>There is no internet connection. Please run the program again after connecting to the Internet.</nointernet>
+
+<verup>You need to update the main program. Go to the download site in 3 seconds.</verup>
+
+<status>Status</status>
+
+<adawayon>Enabled</adawayon>
+
+<adawayoff>Disabled</adawayoff>
+
+<adawayupdate>Update available. Please enter number 2.</adawayupdate>
+
+<checkupdate>Chack for updates</checkupdate>
+
+<adawaylatestinstall>Download files and apply AD-blocking</adawaylatestinstall>
+
+<adawaydisable>Disable AD-blocking</adawaydisable>
+
+<hostssource>Hosts sources</hostssource>
+
+<hostfileopen>Open hosts file</hostfileopen>
+
+<mainchoose>Please enter the number of the item you want</mainchoose>
+
+<hostdownload>Downloading. . .</hostdownload>
+
+<downloadfinish>Download complete!</downloadfinish>
+
+<installing>Installing. . .</installing>
+
+<installfinish>Installed!</installfinish>
+
+<afwexit>Exit</afwexit>

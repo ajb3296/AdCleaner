@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For AfW V.1.0 -->
+<afwver>1.0</afwver>
+<languageerror>이 언어팩은 프로그램과의 버전 호환성 문제로 사용할 수 없습니다.</languageerror>
+
+<language>ko</language>
+
+<nointernet>인터넷에 연결이 되어있지 않습니다. 인터넷 연결 후 프로그램을 다시 실행해 주세요.</nointernet>
+
+<verup>프로그램을 업데이트 해야 합니다. 3초 후 다운로드 사이트로 이동합니다.</verup>
+
+<status>상태</status>
+
+<adawayon>활성화됨</adawayon>
+
+<adawayoff>비활성화됨</adawayoff>
+
+<adawayupdate>업데이트를 사용할 수 있습니다. 2번을 입력해 주세요.</adawayupdate>
+
+<checkupdate>업데이트 확인</checkupdate>
+
+<adawaylatestinstall>최신 호스트 파일 설치</adawaylatestinstall>
+
+<adawaydisable>광고차단 비활성화</adawaydisable>
+
+<hostssource>호스트 소스</hostssource>
+
+<hostfileopen>호스트 파일 열기</hostfileopen>
+
+<mainchoose>원하시는 항목의 숫자를 입력해 주세요</mainchoose>
+
+<hostdownload>다운로드 중. . .</hostdownload>
+
+<downloadfinish>다운로드 완료!</downloadfinish>
+
+<installing>설치 중. . .</installing>
+
+<installfinish>설치 완료!</installfinish>
+
+<afwexit>프로그램 종료</afwexit>
