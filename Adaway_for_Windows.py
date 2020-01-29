@@ -13,13 +13,26 @@ import webbrowser
 import ctypes
 
 def hostdownload():
+    try:
+        shutil.rmtree('hosts')
+    except FileNotFoundError:
+        pass
+    os.mkdir("hosts")
     file = open("hosts/hosts", "w", encoding = 'UTF-8')
     f = open(hostlist, 'r', encoding = 'UTF-8')
     while True:
         line = f.readline()
         if not line: break
-        r = requests.get(line)
-        file.write("%s\n\n"r)
+
+        # Host file download
+        urllib.request.urlretrieve(line, "hosts/host")
+
+        host = open("hosts/host", "r", encoding = 'UTF-8')
+        h = host.read()
+        host.close()
+
+        file.write("\n# %s\n" %line)
+        file.write("%s\n\n" %h)
     f.close()
     file.close()
 
@@ -43,10 +56,25 @@ if __name__ == "__main__":
 
     print("""
 
-    Adaway for Windows
 
-    Version : V.%s
-    Loading. . .
+
+               rQBBBBBBBBBBBBBi              
+             .BBBBBQBQBBBQBQBBBR.            
+            PBBBRQMRMQMRMRgRMQQBBh           
+          JBBBBBBBBQBQQQQgMgQRBQBQB7         
+        iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       
+        QBMMgMBBi:       iPL   :BQMQQB       
+        BBQgMgQQRX.           iBBMMMBB       Adaway for Windows V.%s
+        BBgMgMgQBB            PBQRgRQB       Developer : 천상의나무
+        BBRgRgRgQQM    :.     MBRgMMBB       Loading. . .
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       
+        :BQBRQgMgRBP      BBQQMMgQBBB:       
+          vBBQQgRgQQB2P  hBQQMQRBBBr         
+            XBBBMQMQQBBBQBQQgQQBB2           
+              QBBBBBBBBQBBBQBBBD             
+               iBBBBBBBBQBQBBB:              
     """ %version)
 
     language = "language"
@@ -108,6 +136,7 @@ if __name__ == "__main__":
         soup = BeautifulSoup(languagecode, 'html.parser')
         afwver = soup.find("afwver")
         afwver = afwver.get_text()
+        # Check compatibility of language packs and programs
         if not afwver == version:
             languageerror = soup.find("languageerror")
             languageerror = languageerror.get_text()
@@ -157,7 +186,7 @@ if __name__ == "__main__":
     file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
     hosts = file.read()
     file.close()
-    if not os.path.exist("backup/hosts"):
+    if not os.path.exists("backup/hosts"):
         # Backup of existing 'C:\Windows\System32\drivers\etc\hosts' file on first run of the program
         try:
             shutil.rmtree('backup')
@@ -172,12 +201,12 @@ if __name__ == "__main__":
     backup = file.read()
     file.close()
     hostdownload()
-    if hosts == backup:
-        adawaystatus = adawayoff
-
     file = open("hosts/hosts", "r", encoding = 'UTF-8')
     latesthosts = file.read()
     file.close()
+    if hosts == backup:
+        adawaystatus = adawayoff
+
     elif latesthosts == backup:
         adawaystatus = adawaylatest
 
@@ -189,6 +218,26 @@ if __name__ == "__main__":
     os.system("cls")
     print("""------------------------------------------------------------------------------------------------------------------------
 %s : %s
+------------------------------------------------------------------------------------------------------------------------
+
+               rQBBBBBBBBBBBBBi              
+             .BBBBBQBQBBBQBQBBBR.            
+            PBBBRQMRMQMRMRgRMQQBBh           
+          JBBBBBBBBQBQQQQgMgQRBQBQB7         
+        iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       
+        QBMMgMBBi:       iPL   :BQMQQB       
+        BBQgMgQQRX.           iBBMMMBB       
+        BBgMgMgQBB            PBQRgRQB       Adaway for Windows
+        BBRgRgRgQQM    :.     MBRgMMBB       
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       
+        :BQBRQgMgRBP      BBQQMMgQBBB:       
+          vBBQQgRgQQB2P  hBQQMQRBBBr         
+            XBBBMQMQQBBBQBQQgQQBB2           
+              QBBBBBBBBQBBBQBBBD             
+               iBBBBBBBBQBQBBB:              
+
 """ %(status, adawaystatus))
 
 # This program is not a module!
