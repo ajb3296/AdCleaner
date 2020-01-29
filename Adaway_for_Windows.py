@@ -12,7 +12,7 @@ import socket
 import webbrowser
 import ctypes
 
-def hostdownload():
+def downloadhost():
     try:
         shutil.rmtree('hosts')
     except FileNotFoundError:
@@ -23,18 +23,17 @@ def hostdownload():
     while True:
         line = f.readline()
         if not line: break
-
         # Host file download
+        print("%s : %s" %(hostdownload, line))
         urllib.request.urlretrieve(line, "hosts/host")
-
         host = open("hosts/host", "r", encoding = 'UTF-8')
         h = host.read()
         host.close()
-
         file.write("\n# %s\n" %line)
         file.write("%s\n\n" %h)
     f.close()
     file.close()
+    os.remove("hosts/host")
 
 if __name__ == "__main__":
     
@@ -76,8 +75,6 @@ if __name__ == "__main__":
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
     """ %version)
-
-    language = "language"
 
     if ctypes.windll.shell32.IsUserAnAdmin(): 
         pass
@@ -149,10 +146,34 @@ if __name__ == "__main__":
         verup = verup.get_text()
         status = soup.find("status")
         status = status.get_text()
-        adawaylatest = soup.find("adawaylatest")
-        adawaylatest = adawaylatest.get_text()
+        adawayon = soup.find("adawayon")
+        adawayon = adawayon.get_text()
         adawayoff = soup.find("adawayoff")
         adawayoff = adawayoff.get_text()
+        adawayupdate = soup.find("adawayupdate")
+        adawayupdate = adawayupdate.get_text()
+        checkupdate = soup.find("checkupdate")
+        checkupdate = checkupdate.get_text()
+        adawaylatestinstall = soup.find("adawaylatestinstall")
+        adawaylatestinstall = adawaylatestinstall.get_text()
+        adawaydisable = soup.find("adawaydisable")
+        adawaydisable = adawaydisable.get_text()
+        hostssource = soup.find("hostssource")
+        hostssource = hostssource.get_text()
+        hostfileopen = soup.find("hostfileopen")
+        hostfileopen = hostfileopen.get_text()
+        hostdownload = soup.find("hostdownload")
+        hostdownload = hostdownload.get_text()
+        downloadfinish = soup.find("downloadfinish")
+        downloadfinish = downloadfinish.get_text()
+        installing = soup.find("installing")
+        installing = installing.get_text()
+        installfinish = soup.find("installfinish")
+        installfinish = installfinish.get_text()
+        mainchoose = soup.find("mainchoose")
+        mainchoose = mainchoose.get_text()
+        afwexit = soup.find("afwexit")
+        afwexit = afwexit.get_text()
 
 
     # Check your internet connection
@@ -182,41 +203,44 @@ if __name__ == "__main__":
         os.system("pause")
         exit()
 
-    # Start
-    file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
-    hosts = file.read()
-    file.close()
-    if not os.path.exists("backup/hosts"):
-        # Backup of existing 'C:\Windows\System32\drivers\etc\hosts' file on first run of the program
-        try:
-            shutil.rmtree('backup')
-        except FileNotFoundError:
-            pass
-        os.mkdir("backup")
-        file = open("backup/hosts", "w", encoding = 'UTF-8')
-        file.write(hosts)
+    while True:
+        # Start
+        file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
+        hosts = file.read()
+        file.close()
+        if not os.path.exists("backup/hosts"):
+            # Backup of existing 'C:\Windows\System32\drivers\etc\hosts' file on first run of the program
+            try:
+                shutil.rmtree('backup')
+            except FileNotFoundError:
+                pass
+            os.mkdir("backup")
+            file = open("backup/hosts", "w", encoding = 'UTF-8')
+            file.write(hosts)
+            file.close()
+
+        file = open("backup/hosts", "r", encoding = 'UTF-8')
+        backup = file.read()
         file.close()
 
-    file = open("backup/hosts", "r", encoding = 'UTF-8')
-    backup = file.read()
-    file.close()
-    hostdownload()
-    file = open("hosts/hosts", "r", encoding = 'UTF-8')
-    latesthosts = file.read()
-    file.close()
-    if hosts == backup:
-        adawaystatus = adawayoff
+        downloadhost()
 
-    elif latesthosts == backup:
-        adawaystatus = adawaylatest
+        file = open("hosts/hosts", "r", encoding = 'UTF-8')
+        latesthosts = file.read()
+        file.close()
+        if hosts == backup:
+            adawaystatus = adawayoff
 
-    else:
-        adawaystatus = adawaylatest
+        elif latesthosts == hosts:
+            adawaystatus = adawayon
 
+        else:
+            adawaystatus = adawayupdate
+            
+        while True:
 
-
-    os.system("cls")
-    print("""------------------------------------------------------------------------------------------------------------------------
+            os.system("cls")
+            print("""------------------------------------------------------------------------------------------------------------------------
 %s : %s
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -225,20 +249,65 @@ if __name__ == "__main__":
             PBBBRQMRMQMRMRgRMQQBBh           
           JBBBBBBBBQBQQQQgMgQRBQBQB7         
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
-        BBQMRQg:.   ...igBBBQ..rBRQQBB       
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       
-        BBgMgMgQBB            PBQRgRQB       Adaway for Windows
-        BBRgRgRgQQM    :.     MBRgMMBB       
-        BBMRgRgRMQBBBBBB:    LBQgMgQBB       
-        BBBRRgRgRMBBg7     rBBBMRgQQBB       
-        :BQBRQgMgRBP      BBQQMMgQBBB:       
+        BBQgMgQQRX.           iBBMMMBB       1. %s
+        BBgMgMgQBB            PBQRgRQB       2. %s
+        BBRgRgRgQQM    :.     MBRgMMBB       3. %s
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. %s
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. %s
+        :BQBRQgMgRBP      BBQQMMgQBBB:       6. %s
           vBBQQgRgQQB2P  hBQQMQRBBBr         
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
 
-""" %(status, adawaystatus))
+------------------------------------------------------------------------------------------------------------------------
+""" %(status, adawaystatus, checkupdate, adawaylatestinstall, adawaydisable, hostssource, hostfileopen, afwexit))
+
+            choose = input("\n%s : " %mainchoose)
+            if choose == "1":
+                break
+
+            elif choose == "2":
+                os.system("cls")
+                downloadhost()
+                print(downloadfinish)
+                print(installing)
+                file = open("hosts/hosts", "r", encoding = 'UTF-8')
+                latesthosts = file.read()
+                file.close()
+                file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
+                file.write(latesthosts)
+                file.close()
+                print(installfinish)
+                adawaystatus = adawayon
+                os.system("cls")
+
+            elif choose == "3":
+                file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
+                file.write(backup)
+                file.close()
+                try:
+                    shutil.rmtree('backup')
+                except FileNotFoundError:
+                    pass
+                adawaystatus = adawayoff
+
+            elif choose == "4":
+                os.system("start %s" %hostlist)
+
+            elif choose == "5":
+                os.system("notepad.exe C:\Windows\System32\drivers\etc\hosts")
+
+            elif choose == "6":
+                exit()
+
+            else:
+                pass
+
+
+
 
 # This program is not a module!
 else:
