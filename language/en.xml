@@ -2,13 +2,13 @@
 
 <!-- For AfW V.1.0 -->
 <afwver>1.0</afwver>
-<languageerror>This language pack is not available due to version compatibility issues with the program.</languageerror>
+<languageerror>This language pack is not available due to compatibility issues with the program.</languageerror>
 
 <language>en</language>
 
-<nointernet>There is no internet connection. Please run the program again after connecting to the Internet.</nointernet>
+<nointernet>No internet connection detected. Please run the program again after you have the internet connection.</nointernet>
 
-<verup>You need to update the main program. Go to the download site in 3 seconds.</verup>
+<verup>An update is required for your Adaway. Redirecting to download site in 3 secs.</verup>
 
 <status>Status</status>
 
@@ -18,9 +18,9 @@
 
 <adawayupdate>Update available. Please enter number 2.</adawayupdate>
 
-<checkupdate>Chack for updates</checkupdate>
+<checkupdate>Check for updates</checkupdate>
 
-<adawaylatestinstall>Download files and apply AD-blocking</adawaylatestinstall>
+<adawaylatestinstall>Download latest resources and apply AD-blocking</adawaylatestinstall>
 
 <adawaydisable>Disable AD-blocking</adawaydisable>
 
@@ -28,7 +28,7 @@
 
 <hostfileopen>Open hosts file</hostfileopen>
 
-<mainchoose>Please enter the number of the item you want</mainchoose>
+<mainchoose>Please type the number of the selection you want.</mainchoose>
 
 <hostdownload>Downloading. . .</hostdownload>
 
