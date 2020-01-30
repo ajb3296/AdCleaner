@@ -13,11 +13,13 @@ import webbrowser
 import ctypes
 
 def downloadhost():
+    # Make hosts folder
     try:
         shutil.rmtree('hosts')
     except FileNotFoundError:
         pass
     os.mkdir("hosts")
+
     file = open("hosts/hosts", "w", encoding = 'UTF-8')
     f = open(hostlist, 'r', encoding = 'UTF-8')
     while True:
@@ -47,7 +49,7 @@ if __name__ == "__main__":
     version = "1.0"
 
     # Host file list path setting
-    hostlist = "host_list.txt"
+    hostlist = "hosts_list.txt"
 
     # Default Settings
     os.system("title Adaway_for_Windows V.%s" %version)
@@ -76,6 +78,7 @@ if __name__ == "__main__":
                iBBBBBBBBQBQBBB:              
     """ %version)
 
+    # Chack admin permission
     if ctypes.windll.shell32.IsUserAnAdmin(): 
         pass
     else:
@@ -227,6 +230,7 @@ if __name__ == "__main__":
         latesthosts = file.read()
         file.close()
 
+        # Set status
         if hosts == backup:
             adawaystatus = adawayoff
 
@@ -269,9 +273,12 @@ if __name__ == "__main__":
 """ %(status, adawaystatus, checkupdate, adawaylatestinstall, adawaydisable, hostssource, hostfileopen, afwexit))
 
             choose = input("\n%s : " %mainchoose)
+
+            # Check for updates
             if choose == "1":
                 break
 
+            # Install hosts file
             elif choose == "2":
                 print(installing)
                 file = open("hosts/hosts", "r", encoding = 'UTF-8')
@@ -284,22 +291,22 @@ if __name__ == "__main__":
                 adawaystatus = adawayon
                 os.system("cls")
 
+            # Restore hosts file
             elif choose == "3":
                 file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
                 file.write(backup)
                 file.close()
-                try:
-                    shutil.rmtree('backup')
-                except FileNotFoundError:
-                    pass
                 adawaystatus = adawayoff
 
+            # Open hosts list
             elif choose == "4":
                 os.system("start %s" %hostlist)
 
+            # Open host file
             elif choose == "5":
                 os.system("notepad.exe C:\Windows\System32\drivers\etc\hosts")
 
+            # Exit
             elif choose == "6":
                 exit()
 
