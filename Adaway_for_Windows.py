@@ -251,15 +251,15 @@ if __name__ == "__main__":
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
           JBBBBBBBBQBQQQQgMgQRBQBQB7         
-        iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
-        BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
-        QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       1. %s
-        BBgMgMgQBB            PBQRgRQB       2. %s
-        BBRgRgRgQQM    :.     MBRgMMBB       3. %s
-        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. %s
-        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. %s
-        :BQBRQgMgRBP      BBQQMMgQBBB:       6. %s
+        iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       Adaway for Windows
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       
+        QBMMgMBBi:       iPL   :BQMQQB       1. %s
+        BBQgMgQQRX.           iBBMMMBB       2. %s
+        BBgMgMgQBB            PBQRgRQB       3. %s
+        BBRgRgRgQQM    :.     MBRgMMBB       4. %s
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       5. %s
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       6. %s
+        :BQBRQgMgRBP      BBQQMMgQBBB:       
           vBBQQgRgQQB2P  hBQQMQRBBBr         
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
