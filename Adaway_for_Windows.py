@@ -164,8 +164,6 @@ if __name__ == "__main__":
         hostfileopen = hostfileopen.get_text()
         hostdownload = soup.find("hostdownload")
         hostdownload = hostdownload.get_text()
-        downloadfinish = soup.find("downloadfinish")
-        downloadfinish = downloadfinish.get_text()
         installing = soup.find("installing")
         installing = installing.get_text()
         installfinish = soup.find("installfinish")
@@ -228,14 +226,19 @@ if __name__ == "__main__":
         file = open("hosts/hosts", "r", encoding = 'UTF-8')
         latesthosts = file.read()
         file.close()
+
         if hosts == backup:
             adawaystatus = adawayoff
 
-        elif latesthosts == hosts:
+        elif hosts == latesthosts:
             adawaystatus = adawayon
 
-        else:
+        elif not hosts == latesthosts:
             adawaystatus = adawayupdate
+
+        else:
+            adawaystatus = "Error"
+
             
         while True:
 
@@ -270,9 +273,6 @@ if __name__ == "__main__":
                 break
 
             elif choose == "2":
-                os.system("cls")
-                downloadhost()
-                print(downloadfinish)
                 print(installing)
                 file = open("hosts/hosts", "r", encoding = 'UTF-8')
                 latesthosts = file.read()
@@ -305,9 +305,6 @@ if __name__ == "__main__":
 
             else:
                 pass
-
-
-
 
 # This program is not a module!
 else:
