@@ -26,9 +26,11 @@
 
 <hostssource>호스트 소스</hostssource>
 
-<hostfileopen>호스트 파일 열기</hostfileopen>
-
 <mainchoose>원하시는 항목의 숫자를 입력해 주세요</mainchoose>
+
+<hostsislatest>이미 최신 호스트 파일이 설치되어 있습니다.</hostsislatest>
+
+<hostsisoriginal>이미 호스트 파일이 시스템 기본상태입니다.</hostsisoriginal>
 
 <hostdownload>다운로드 중. . .</hostdownload>
 
