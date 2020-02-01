@@ -321,7 +321,7 @@ if __name__ == "__main__":
                 # os.system('start system\open_hosts.bat')
 
             # Exit
-            elif choose == "6":
+            elif choose == "5":
                 exit()
 
             else:
