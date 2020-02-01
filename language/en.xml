@@ -26,9 +26,11 @@
 
 <hostssource>Hosts sources</hostssource>
 
-<hostfileopen>Open hosts file</hostfileopen>
-
 <mainchoose>Please type the number of the selection you want.</mainchoose>
+
+<hostsislatest>The latest host file is already installed.</hostsislatest>
+
+<hostsisoriginal>The hosts file is already in the system default state.</hostsisoriginal>
 
 <hostdownload>Downloading. . .</hostdownload>
 
