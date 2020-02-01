@@ -281,22 +281,37 @@ if __name__ == "__main__":
             # Install hosts file
             elif choose == "2":
                 print(installing)
-                file = open("hosts/hosts", "r", encoding = 'UTF-8')
-                latesthosts = file.read()
-                file.close()
-                file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
-                file.write(latesthosts)
-                file.close()
-                print(installfinish)
-                adawaystatus = adawayon
-                os.system("cls")
+                while True:
+                    try:
+                        file = open("hosts/hosts", "r", encoding = 'UTF-8')
+                    except PermissionError:
+                        adawaystatus = "Permission Error. Please restart program"
+                        break
+                    latesthosts = file.read()
+                    file.close()
+                    try:
+                        file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
+                    except PermissionError:
+                        adawaystatus = "Permission Error. Please restart program"
+                        break
+                    file.write(latesthosts)
+                    file.close()
+                    print(installfinish)
+                    adawaystatus = adawayon
+                    break
 
             # Restore hosts file
             elif choose == "3":
-                file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
-                file.write(backup)
-                file.close()
-                adawaystatus = adawayoff
+                while True:
+                    try:
+                        file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
+                    except PermissionError:
+                        adawaystatus = "Permission Error. Please restart program"
+                        break
+                    file.write(backup)
+                    file.close()
+                    adawaystatus = adawayoff
+                    break
 
             # Open hosts list
             elif choose == "4":
@@ -304,7 +319,12 @@ if __name__ == "__main__":
 
             # Open host file
             elif choose == "5":
-                os.system("notepad.exe C:\Windows\System32\drivers\etc\hosts")
+                file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
+                hosts = file.read()
+                file.close()
+                os.system("cls")
+                print("%s\n\n------------------------------------------------------------------------------------------------------------------------\n" %hosts)
+                os.system("pause")
 
             # Exit
             elif choose == "6":
