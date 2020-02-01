@@ -163,10 +163,10 @@ if __name__ == "__main__":
         adawaydisable = adawaydisable.get_text()
         hostssource = soup.find("hostssource")
         hostssource = hostssource.get_text()
-        #hostfileopen = soup.find("hostfileopen")
-        #hostfileopen = hostfileopen.get_text()
         hostdownload = soup.find("hostdownload")
         hostdownload = hostdownload.get_text()
+        hostsislatest = soup.find("hostsislatest")
+        hostsislatest = hostsislatest.get_text()
         installing = soup.find("installing")
         installing = installing.get_text()
         installfinish = soup.find("installfinish")
@@ -281,6 +281,9 @@ if __name__ == "__main__":
             elif choose == "2":
                 print(installing)
                 while True:
+                    if adawaystatus == adawayon or adawaystatus == hostsislatest:
+                        adawaystatus = hostsislatest
+                        break
                     try:
                         file = open("hosts/hosts", "r", encoding = 'UTF-8')
                     except PermissionError:
@@ -302,6 +305,9 @@ if __name__ == "__main__":
             # Restore hosts file
             elif choose == "3":
                 while True:
+                    if adawaystatus == adawayoff or adawaystatus == hostsisoriginal:
+                        adawaystatus = hostsisoriginal
+                        break
                     try:
                         file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
                     except PermissionError:
@@ -315,10 +321,6 @@ if __name__ == "__main__":
             # Open hosts list
             elif choose == "4":
                 os.system("start %s" %hostlist)
-
-            # Open host file
-            # elif choose == "5":
-                # os.system('start system\open_hosts.bat')
 
             # Exit
             elif choose == "5":
