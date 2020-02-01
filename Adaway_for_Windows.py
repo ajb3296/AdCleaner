@@ -163,8 +163,8 @@ if __name__ == "__main__":
         adawaydisable = adawaydisable.get_text()
         hostssource = soup.find("hostssource")
         hostssource = hostssource.get_text()
-        hostfileopen = soup.find("hostfileopen")
-        hostfileopen = hostfileopen.get_text()
+        #hostfileopen = soup.find("hostfileopen")
+        #hostfileopen = hostfileopen.get_text()
         hostdownload = soup.find("hostdownload")
         hostdownload = hostdownload.get_text()
         installing = soup.find("installing")
@@ -243,7 +243,6 @@ if __name__ == "__main__":
         else:
             adawaystatus = "Error"
 
-            
         while True:
 
             os.system("cls")
@@ -255,14 +254,14 @@ if __name__ == "__main__":
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
           JBBBBBBBBQBQQQQgMgQRBQBQB7         
-        iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       Adaway for Windows
-        BBQMRQg:.   ...igBBBQ..rBRQQBB       
-        QBMMgMBBi:       iPL   :BQMQQB       1. %s
-        BBQgMgQQRX.           iBBMMMBB       2. %s
-        BBgMgMgQBB            PBQRgRQB       3. %s
-        BBRgRgRgQQM    :.     MBRgMMBB       4. %s
-        BBMRgRgRMQBBBBBB:    LBQgMgQBB       5. %s
-        BBBRRgRgRMBBg7     rBBBMRgQQBB       6. %s
+        iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
+        QBMMgMBBi:       iPL   :BQMQQB       
+        BBQgMgQQRX.           iBBMMMBB       1. %s
+        BBgMgMgQBB            PBQRgRQB       2. %s
+        BBRgRgRgQQM    :.     MBRgMMBB       3. %s
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. %s
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. %s
         :BQBRQgMgRBP      BBQQMMgQBBB:       
           vBBQQgRgQQB2P  hBQQMQRBBBr         
             XBBBMQMQQBBBQBQQgQQBB2           
@@ -270,7 +269,7 @@ if __name__ == "__main__":
                iBBBBBBBBQBQBBB:              
 
 ------------------------------------------------------------------------------------------------------------------------
-""" %(status, adawaystatus, checkupdate, adawaylatestinstall, adawaydisable, hostssource, hostfileopen, afwexit))
+""" %(status, adawaystatus, checkupdate, adawaylatestinstall, adawaydisable, hostssource, afwexit))
 
             choose = input("\n%s : " %mainchoose)
 
@@ -285,14 +284,14 @@ if __name__ == "__main__":
                     try:
                         file = open("hosts/hosts", "r", encoding = 'UTF-8')
                     except PermissionError:
-                        adawaystatus = "Permission Error. Please restart program"
+                        adawaystatus = "Permission Error. Please restart program - latesthosts read error"
                         break
                     latesthosts = file.read()
                     file.close()
                     try:
                         file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
                     except PermissionError:
-                        adawaystatus = "Permission Error. Please restart program"
+                        adawaystatus = "Permission Error. Please restart program - hosts write error"
                         break
                     file.write(latesthosts)
                     file.close()
@@ -306,7 +305,7 @@ if __name__ == "__main__":
                     try:
                         file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
                     except PermissionError:
-                        adawaystatus = "Permission Error. Please restart program"
+                        adawaystatus = "Permission Error. Please restart program - hosts write error"
                         break
                     file.write(backup)
                     file.close()
@@ -318,13 +317,8 @@ if __name__ == "__main__":
                 os.system("start %s" %hostlist)
 
             # Open host file
-            elif choose == "5":
-                file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
-                hosts = file.read()
-                file.close()
-                os.system("cls")
-                print("%s\n\n------------------------------------------------------------------------------------------------------------------------\n" %hosts)
-                os.system("pause")
+            # elif choose == "5":
+                # os.system('start system\open_hosts.bat')
 
             # Exit
             elif choose == "6":
