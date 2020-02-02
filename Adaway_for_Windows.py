@@ -11,6 +11,7 @@ import shutil
 import socket
 import webbrowser
 import ctypes
+import subprocess
 
 def downloadhost():
     # Make hosts folder
@@ -82,7 +83,7 @@ if __name__ == "__main__":
     if ctypes.windll.shell32.IsUserAnAdmin(): 
         pass
     else:
-        print("This program requires administrator privileges.\nPlease run the program again with administrative authority.")
+        print("This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.")
         os.system("pause")
         exit()
 
@@ -167,6 +168,8 @@ if __name__ == "__main__":
         hostdownload = hostdownload.get_text()
         hostsislatest = soup.find("hostsislatest")
         hostsislatest = hostsislatest.get_text()
+        hostsisoriginal = soup.find("hostsisoriginal")
+        hostsisoriginal = hostsisoriginal.get_text()
         installing = soup.find("installing")
         installing = installing.get_text()
         installfinish = soup.find("installfinish")
@@ -241,7 +244,7 @@ if __name__ == "__main__":
             adawaystatus = adawayupdate
 
         else:
-            adawaystatus = "Error"
+            adawaystatus = "Status error"
 
         while True:
 
