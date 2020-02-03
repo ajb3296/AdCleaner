@@ -11,10 +11,9 @@ import shutil
 import socket
 import webbrowser
 import ctypes
-import subprocess
 
 def downloadhost():
-    # Reset hosts folder
+    # Make hosts folder
     try:
         shutil.rmtree('hosts')
     except FileNotFoundError:
@@ -51,6 +50,7 @@ if __name__ == "__main__":
 
     # Host file list path setting
     hostlist = "hosts_list.txt"
+    hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
 
     # Default Settings
     os.system("title Adaway_for_Windows V.%s" %version)
@@ -209,7 +209,7 @@ if __name__ == "__main__":
 
     while True:
         # Start
-        file = open("C:\Windows\System32\drivers\etc\hosts", "r", encoding = 'UTF-8')
+        file = open(hostsfilepath, "r", encoding = 'UTF-8')
         hosts = file.read()
         file.close()
         if not os.path.exists("backup/hosts"):
@@ -295,7 +295,7 @@ if __name__ == "__main__":
                     latesthosts = file.read()
                     file.close()
                     try:
-                        file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
+                        file = open(hostsfilepath, "w", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
                         break
@@ -312,7 +312,7 @@ if __name__ == "__main__":
                         adawaystatus = hostsisoriginal
                         break
                     try:
-                        file = open("C:\Windows\System32\drivers\etc\hosts", "w", encoding = 'UTF-8')
+                        file = open(hostsfilepath, "w", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
                         break
