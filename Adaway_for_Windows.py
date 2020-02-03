@@ -13,7 +13,7 @@ import webbrowser
 import ctypes
 
 def downloadhost():
-    # Make hosts folder
+    # Reset hosts folder
     try:
         shutil.rmtree('hosts')
     except FileNotFoundError:
