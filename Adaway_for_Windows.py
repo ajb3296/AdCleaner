@@ -291,6 +291,7 @@ if __name__ == "__main__":
                         file = open("hosts/hosts", "r", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - latesthosts read error"
+                        file.close()
                         break
                     latesthosts = file.read()
                     file.close()
@@ -298,6 +299,7 @@ if __name__ == "__main__":
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
+                        file.close()
                         break
                     file.write(latesthosts)
                     file.close()
@@ -315,6 +317,7 @@ if __name__ == "__main__":
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
+                        file.close()
                         break
                     file.write(backup)
                     file.close()
