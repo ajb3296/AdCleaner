@@ -3,3 +3,4 @@ https://hosts-file.net/ad_servers.txt
 https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
 https://someonewhocares.org/hosts/zero/hosts
 https://www.malwaredomainlist.com/hostslist/hosts.txt
+https://newpremium.github.io/clean_internet/hosts.txt
