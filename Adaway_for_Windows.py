@@ -303,6 +303,8 @@ if __name__ == "__main__":
                         break
                     file.write(latesthosts)
                     file.close()
+                    # Flush DNS
+                    os.system("ipconfig /flushdns")
                     print(installfinish)
                     adawaystatus = adawayon
                     break
@@ -321,6 +323,8 @@ if __name__ == "__main__":
                         break
                     file.write(backup)
                     file.close()
+                    # Flush DNS
+                    os.system("ipconfig /flushdns")
                     adawaystatus = adawayoff
                     break
 
