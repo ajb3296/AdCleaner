@@ -1,5 +1,9 @@
 # Adaway_for_Windows
 
+### 다운로드
+
+[https://github.com/NewPremium/Adaway_for_Windows/releases](https://github.com/NewPremium/Adaway_for_Windows/releases)
+
 ### 주의사항
 
   * Kaspersky 사용자분들은 먼저 카스퍼스키 예외처리에서 C:\Windows\System32\drivers\etc\hosts 경로와 프로그램이 들어있는 폴더를 예외항목에 추가해 주세요.
