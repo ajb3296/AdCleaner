@@ -23,5 +23,5 @@
 * 프로그램 사용 중 에러는 증상을 스크린샷과 함께 [여기](https://telegram.me/ajb3296) (먼저 텔레그램을 설치하셔야 합니다) 로 보내주세요.
 * 이 프로그램은 현재 Alpha 버전입니다. 사용 중 발생하는 모든 문제의 책임은 사용자에게 있습니다.
 * 언어팩 호환문제로 Alpha 버전과 Beta 버전에서 프로그램의 버전확인은 지원하지 않습니다.
-* 쓰고싶으면 쓰는 호스트파일입니다 : https://newpremium.github.io/adaway_host/hosts.txt
+* ~~쓰고싶으면 쓰는 호스트파일입니다 : https://newpremium.github.io/adaway_host/hosts.txt~~ --> V.1.1 부터 기본 
 * 호스트 추가는 hosts_list.txt 에 하시면 됩니다.
