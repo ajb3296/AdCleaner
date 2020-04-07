@@ -139,11 +139,14 @@ if __name__ == "__main__":
         afwver = afwver.get_text()
         # Check compatibility of language packs and programs
         if not afwver == version:
-            languageerror = soup.find("languageerror")
-            languageerror = languageerror.get_text()
-            print(languageerror)
-            os.system("pause")
-            exit()
+            if afwver == "1.0":
+                pass
+            else:
+                languageerror = soup.find("languageerror")
+                languageerror = languageerror.get_text()
+                print(languageerror)
+                os.system("pause")
+                exit()
         nointernet = soup.find("nointernet")
         nointernet = nointernet.get_text()
         verup = soup.find("verup")
@@ -293,12 +296,20 @@ if __name__ == "__main__":
                         adawaystatus = "Permission Error. Please restart program - latesthosts read error"
                         file.close()
                         break
+                    except:
+                        adawaystatus = "Unknown error"
+                        file.close()
+                        break
                     latesthosts = file.read()
                     file.close()
                     try:
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
+                        file.close()
+                        break
+                    except:
+                        adawaystatus = "Unknown error"
                         file.close()
                         break
                     file.write(latesthosts)
@@ -319,6 +330,10 @@ if __name__ == "__main__":
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
+                        file.close()
+                        break
+                    except:
+                        adawaystatus = "Unknown error"
                         file.close()
                         break
                     file.write(backup)
