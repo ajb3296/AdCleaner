@@ -191,7 +191,7 @@ if __name__ == "__main__":
         # https://github.com/NewPremium/version/blob/master/index.xml
         url = "https://newpremium.github.io/version/"
         r = requests.get(url)
-        soup = BeautifulSoup(r.text, "html.parser")
+        soup = BeautifulSoup(r.text, "lxml")
         afw = soup.find("afw")
         afw = afw.get_text()
         afwdownload = soup.find("afwdownload")
