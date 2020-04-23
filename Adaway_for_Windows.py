@@ -117,7 +117,7 @@ if __name__ == "__main__":
     file = open("setting.xml", "r", encoding = 'UTF-8')
     setting = file.read()
     file.close()
-    soup = BeautifulSoup(setting, 'html.parser')
+    soup = BeautifulSoup(setting, 'lxml')
     language = soup.find("language")
     language = language.get_text()
 
@@ -134,7 +134,7 @@ if __name__ == "__main__":
         file = open("language/%s.xml" %language, "r", encoding = 'UTF-8')
         languagecode = file.read()
         file.close()
-        soup = BeautifulSoup(languagecode, 'html.parser')
+        soup = BeautifulSoup(languagecode, 'lxml')
         afwver = soup.find("afwver")
         afwver = afwver.get_text()
         # Check compatibility of language packs and programs
