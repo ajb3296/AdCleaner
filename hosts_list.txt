@@ -4,3 +4,4 @@ https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimet
 https://someonewhocares.org/hosts/zero/hosts
 https://www.malwaredomainlist.com/hostslist/hosts.txt
 https://newpremium.github.io/clean_internet/hosts.txt
+https://newpremium.github.io/adaway_host/hosts.txt
