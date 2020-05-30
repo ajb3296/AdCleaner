@@ -147,40 +147,23 @@ if __name__ == "__main__":
                 print(languageerror)
                 os.system("pause")
                 exit()
-        nointernet = soup.find("nointernet")
-        nointernet = nointernet.get_text()
-        verup = soup.find("verup")
-        verup = verup.get_text()
-        status = soup.find("status")
-        status = status.get_text()
-        adawayon = soup.find("adawayon")
-        adawayon = adawayon.get_text()
-        adawayoff = soup.find("adawayoff")
-        adawayoff = adawayoff.get_text()
-        adawayupdate = soup.find("adawayupdate")
-        adawayupdate = adawayupdate.get_text()
-        checkupdate = soup.find("checkupdate")
-        checkupdate = checkupdate.get_text()
-        adawaylatestinstall = soup.find("adawaylatestinstall")
-        adawaylatestinstall = adawaylatestinstall.get_text()
-        adawaydisable = soup.find("adawaydisable")
-        adawaydisable = adawaydisable.get_text()
-        hostssource = soup.find("hostssource")
-        hostssource = hostssource.get_text()
-        hostdownload = soup.find("hostdownload")
-        hostdownload = hostdownload.get_text()
-        hostsislatest = soup.find("hostsislatest")
-        hostsislatest = hostsislatest.get_text()
-        hostsisoriginal = soup.find("hostsisoriginal")
-        hostsisoriginal = hostsisoriginal.get_text()
-        installing = soup.find("installing")
-        installing = installing.get_text()
-        installfinish = soup.find("installfinish")
-        installfinish = installfinish.get_text()
-        mainchoose = soup.find("mainchoose")
-        mainchoose = mainchoose.get_text()
-        afwexit = soup.find("afwexit")
-        afwexit = afwexit.get_text()
+        nointernet = soup.find("nointernet").get_text()
+        verup = soup.find("verup").get_text()
+        status = soup.find("status").get_text()
+        adawayon = soup.find("adawayon").get_text()
+        adawayoff = soup.find("adawayoff").get_text()
+        adawayupdate = soup.find("adawayupdate").get_text()
+        checkupdate = soup.find("checkupdate").get_text()
+        adawaylatestinstall = soup.find("adawaylatestinstall").get_text()
+        adawaydisable = soup.find("adawaydisable").get_text()
+        hostssource = soup.find("hostssource").get_text()
+        hostdownload = soup.find("hostdownload").get_text()
+        hostsislatest = soup.find("hostsislatest").get_text()
+        hostsisoriginal = soup.find("hostsisoriginal").get_text()
+        installing = soup.find("installing").get_text()
+        installfinish = soup.find("installfinish").get_text()
+        mainchoose = soup.find("mainchoose").get_text()
+        afwexit = soup.find("afwexit").get_text()
 
 
     # Check your internet connection
@@ -292,6 +275,8 @@ if __name__ == "__main__":
                         break
                     try:
                         file = open("hosts/hosts", "r", encoding = 'UTF-8')
+                        latesthosts = file.read()
+                        file.close()
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - latesthosts read error"
                         file.close()
@@ -304,6 +289,8 @@ if __name__ == "__main__":
                     file.close()
                     try:
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
+                        file.write(latesthosts)
+                        file.close()
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
                         file.close()
@@ -312,8 +299,6 @@ if __name__ == "__main__":
                         adawaystatus = "Unknown error"
                         file.close()
                         break
-                    file.write(latesthosts)
-                    file.close()
                     # Flush DNS
                     os.system("ipconfig /flushdns")
                     print(installfinish)
@@ -328,6 +313,8 @@ if __name__ == "__main__":
                         break
                     try:
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
+                        file.write(backup)
+                        file.close()
                     except PermissionError:
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
                         file.close()
@@ -336,8 +323,6 @@ if __name__ == "__main__":
                         adawaystatus = "Unknown error"
                         file.close()
                         break
-                    file.write(backup)
-                    file.close()
                     # Flush DNS
                     os.system("ipconfig /flushdns")
                     adawaystatus = adawayoff
