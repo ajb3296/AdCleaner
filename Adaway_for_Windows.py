@@ -22,8 +22,9 @@ def download(url, host_name, host_download_fail, host_download_success):
         print("%s : %s" %(host_download_fail, url))
 
     else:
-        # 성공 시 response 상태정보 확인
+        # 성공시 상태 출력
         print("%s : %s" %(host_download_success, url))
+        # 다운로드한 
         host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
         data = host.read()
         host.close()
