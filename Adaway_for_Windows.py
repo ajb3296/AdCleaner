@@ -41,7 +41,7 @@ def download(url, host_name, host_download_fail, host_download_success):
         file.close()
     return
 
-def downloadhost(host_download, host_download_fail, host_download_success):
+def downloadhost(finishdownload, host_download, host_download_fail, host_download_success):
     q = multiprocessing.Queue()
     # Reset hosts folder
     try:
@@ -68,13 +68,13 @@ def downloadhost(host_download, host_download_fail, host_download_success):
         # Make file name
         host_name = re.sub('[\/:*?"<>|.]', '', l)
 
-        process = multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success)).start()
-    
-    q.close()
-    q.join_thread()
+        process = multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success))
+        process.start()
+
     process.join()
     f.close()
-    return
+    finishdownload.send('Download complete!')
+    finishdownload.close()
 
 def main():
 
@@ -234,7 +234,11 @@ def main():
         backup = file.read()
         file.close()
 
-        downloadhost(host_download, host_download_fail, host_download_success)
+        finish_download_host, finishdownload = multiprocessing.Pipe()
+        main_host_download = multiprocessing.Process(target=downloadhost, args=(finishdownload, host_download, host_download_fail, host_download_success,))
+        main_host_download.start()
+        finish_download_host = finish_download_host.recv()
+        main_host_download.join()
 
         file = open("hosts/hosts", "r", encoding = 'UTF-8')
         latesthosts = file.read()
