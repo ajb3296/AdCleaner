@@ -133,14 +133,11 @@ def main():
         afwver = afwver.get_text()
         # Check compatibility of language packs and programs
         if not afwver == version:
-            if afwver == "1.0":
-                pass
-            else:
-                languageerror = soup.find("languageerror")
-                languageerror = languageerror.get_text()
-                print(languageerror)
-                os.system("pause")
-                exit()
+            languageerror = soup.find("languageerror")
+            languageerror = languageerror.get_text()
+            print(languageerror)
+            os.system("pause")
+            exit()
         nointernet = soup.find("nointernet").get_text()
         verup = soup.find("verup").get_text()
         status = soup.find("status").get_text()
