@@ -63,12 +63,12 @@ def downloadhost(host_download, host_download_fail, host_download_success):
         if not l:
             break
 
-        print("%s : %s" %(host_download, l, host_download_fail, host_download_success))
+        print("%s : %s" %(host_download, l))
 
         # Make file name
         host_name = re.sub('[\/:*?"<>|.]', '', l)
 
-        multiprocessing.Process(target=download, args=(l, host_name)).start()
+        multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success)).start()
     
     q.join()
     f.close()
