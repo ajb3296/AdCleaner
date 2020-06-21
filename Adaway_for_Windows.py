@@ -52,7 +52,7 @@ if __name__ == "__main__":
         exit()
 
     # Main program version
-    version = "1.1"
+    version = "1.2"
 
     # Host file list path setting
     hostlist = "hosts_list.txt"
