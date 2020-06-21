@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- For AfW V.1.0 -->
-<afwver>1.0</afwver>
+<!-- For AfW V.1.2 -->
+<afwver>1.2</afwver>
 <languageerror>이 언어팩은 프로그램과의 버전 호환성 문제로 사용할 수 없습니다.</languageerror>
 
 <language>ko</language>
@@ -12,30 +12,32 @@
 
 <status>상태</status>
 
-<adawayon>활성화됨</adawayon>
+<adaway_on>활성화됨</adaway_on>
 
-<adawayoff>비활성화됨</adawayoff>
+<adaway_off>비활성화됨</adaway_off>
 
-<adawayupdate>업데이트 가능, 2번을 입력해 주세요.</adawayupdate>
+<adaway_update>업데이트 가능, 2번을 입력해 주세요.</adaway_update>
 
-<checkupdate>업데이트 확인</checkupdate>
+<check_update>업데이트 확인</check_update>
 
-<adawaylatestinstall>최신 호스트 파일 설치</adawaylatestinstall>
+<adaway_latest_install>최신 호스트 파일 설치</adaway_latest_install>
 
-<adawaydisable>광고차단 비활성화</adawaydisable>
+<adaway_disable>광고차단 비활성화</adaway_disable>
 
-<hostssource>호스트 소스</hostssource>
+<hosts_source>호스트 소스</hosts_source>
 
-<mainchoose>원하시는 항목의 숫자를 입력해 주세요</mainchoose>
+<main_choose>원하시는 항목의 숫자를 입력해 주세요</main_choose>
 
-<hostsislatest>이미 최신 호스트 파일이 설치되어 있습니다.</hostsislatest>
+<hosts_is_latest>이미 최신 호스트 파일이 설치되어 있습니다.</hosts_is_latest>
 
-<hostsisoriginal>이미 호스트 파일이 시스템 기본상태입니다.</hostsisoriginal>
+<hosts_is_original>이미 호스트 파일이 시스템 기본상태입니다.</hosts_is_original>
 
-<hostdownload>다운로드 중. . .</hostdownload>
+<host_download>다운로드 중. . .</host_download>
+<host_download_fail>다운로드 실패!</host_download_fail>
+<host_download_success>다운로드 성공!</host_download_success>
 
 <installing>설치 중. . .</installing>
 
-<installfinish>설치 완료!</installfinish>
+<install_finish>설치 완료!</install_finish>
 
-<afwexit>프로그램 종료</afwexit>
+<afw_exit>프로그램 종료</afw_exit>
