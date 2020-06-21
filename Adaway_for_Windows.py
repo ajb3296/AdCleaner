@@ -22,13 +22,11 @@ def download(url, host_name, host_download_fail, host_download_success):
         print("%s : %s" %(host_download_fail, url))
 
     else:
-        # 성공시 상태 출력
         print("%s : %s" %(host_download_success, url))
-        # 다운로드한 
         host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
         data = host.read()
         host.close()
-        # 필요없는 파일 제거
+        # Remove unnecessary files
         os.remove("hosts/%s" %host_name)
 
         while True:
@@ -57,7 +55,7 @@ def downloadhost(host_download, host_download_fail, host_download_success):
     file.write("# Adaway for Windows")
     file.close()
 
-    # 호스트 리스트 읽어오기
+    # Read host list
     f = open(hostlist, 'r', encoding = 'UTF-8')
     while True:
         l = f.readline()
@@ -66,12 +64,13 @@ def downloadhost(host_download, host_download_fail, host_download_success):
 
         print("%s : %s" %(host_download, l, host_download_fail, host_download_success))
 
-        # 파일명 만들기
+        # Make file name
         host_name = re.sub('[\/:*?"<>|.]', '', l)
 
         multiprocessing.Process(target=download, args=(l, host_name)).start()
 
     f.close()
+    return
 
 def main():
 
