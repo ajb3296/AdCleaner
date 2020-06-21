@@ -12,9 +12,37 @@ import socket
 import webbrowser
 import ctypes
 import re
-import asyncio
+import multiprocessing
 
-async def downloadhost(header, hostlist, hostdownload):
+def download(url, host_name, host_download_fail, host_download_success):
+    try:
+        urllib.request.urlretrieve(url, "hosts/%s" %host_name)
+
+    except Exception as e:
+        print("%s : %s" %(host_download_fail, url))
+
+    else:
+        # 성공 시 response 상태정보 확인
+        print("%s : %s" %(host_download_success, url))
+        host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
+        data = host.read()
+        host.close()
+        # 필요없는 파일 제거
+        os.remove("hosts/%s" %host_name)
+
+        while True:
+            try:
+                file = open("hosts/hosts", "a", encoding = 'UTF-8')
+            except:
+                pass
+            else:
+                break
+        file.write("\n# %s\n" %url)
+        file.write("%s\n\n" %data)
+        file.close()
+    return
+
+def downloadhost(host_download, host_download_fail, host_download_success):
     # Reset hosts folder
     try:
         shutil.rmtree('hosts')
@@ -25,27 +53,24 @@ async def downloadhost(header, hostlist, hostdownload):
         file = open("hosts/hosts", "w", encoding = 'UTF-8')
     except:
         exit()
+    file.write("# Adaway for Windows")
+    file.close()
+
+    # 호스트 리스트 읽어오기
     f = open(hostlist, 'r', encoding = 'UTF-8')
     while True:
-        line = f.readline()
-        if not line: break
-        # Host file download
-        print("%s : %s" %(hostdownload, line))
+        l = f.readline()
+        if not l:
+            break
 
-        host_name = re.sub('[\/:*?"<>|.]', '', line)
+        print("%s : %s" %(host_download, l, host_download_fail, host_download_success))
 
-        # Host files download
-        urllib.request.urlretrieve(line, "hosts/%s" %host_name)
-        #data = await getReqTEXT (line, header)
+        # 파일명 만들기
+        host_name = re.sub('[\/:*?"<>|.]', '', l)
 
-        host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
-        h = host.read()
-        host.close()
-        os.remove("hosts/%s" %host_name)
-        file.write("\n# %s\n" %line)
-        file.write("%s\n\n" %h)
+        multiprocessing.Process(target=download, args=(l, host_name)).start()
+
     f.close()
-    file.close()
 
 def main():
 
@@ -155,7 +180,8 @@ def main():
         install_finish = soup.find("install_finish").get_text()
         main_choose = soup.find("main_choose").get_text()
         afw_exit = soup.find("afw_exit").get_text()
-
+        host_download_fail = soup.find("host_download_fail").get_text()
+        host_download_success = soup.find("host_download_success").get_text()
 
     # Check your internet connection
     ipaddress = socket.gethostbyname(socket.gethostname())
@@ -204,7 +230,7 @@ def main():
         backup = file.read()
         file.close()
 
-        asyncio.run(downloadhost(header, hostlist, host_download))
+        downloadhost(host_download, host_download_fail, host_download_success)
 
         file = open("hosts/hosts", "r", encoding = 'UTF-8')
         latesthosts = file.read()
@@ -336,9 +362,6 @@ if __name__ == "__main__":
         exit()
     # Main program version
     version = "1.2"
-
-    # Header
-    header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
 
     # Host file list path setting
     hostlist = "hosts_list.txt"
