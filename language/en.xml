@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- For AfW V.1.0 -->
-<afwver>1.0</afwver>
+<!-- For AfW V.1.2 -->
+<afwver>1.2</afwver>
 <languageerror>This language pack is not available due to compatibility issues with the program.</languageerror>
 
 <language>en</language>
@@ -12,30 +12,32 @@
 
 <status>Status</status>
 
-<adawayon>Enabled</adawayon>
+<adaway_on>Enabled</adaway_on>
 
-<adawayoff>Disabled</adawayoff>
+<adaway_off>Disabled</adaway_off>
 
-<adawayupdate>Update available. Please enter number 2.</adawayupdate>
+<adaway_update>Update available. Please enter number 2.</adaway_update>
 
-<checkupdate>Check for updates</checkupdate>
+<check_update>Check for updates</check_update>
 
-<adawaylatestinstall>Download latest hosts and apply AD-blocking</adawaylatestinstall>
+<adaway_latest_install>Download latest hosts and apply AD-blocking</adaway_latest_install>
 
-<adawaydisable>Disable AD-blocking</adawaydisable>
+<adaway_disable>Disable AD-blocking</adaway_disable>
 
-<hostssource>Hosts sources</hostssource>
+<hosts_source>Hosts sources</hosts_source>
 
-<mainchoose>Please type the number of the selection you want.</mainchoose>
+<main_choose>Please type the number of the selection you want.</main_choose>
 
-<hostsislatest>The latest host file is already installed.</hostsislatest>
+<hosts_is_latest>The latest host file is already installed.</hosts_is_latest>
 
-<hostsisoriginal>The hosts file is already in the system default state.</hostsisoriginal>
+<hosts_is_original>The hosts file is already in the system default state.</hosts_is_original>
 
-<hostdownload>Downloading. . .</hostdownload>
+<host_download>Downloading. . .</host_download>
+<host_download_fail>Download failed!</host_download_fail>
+<host_download_success>Download successful!</host_download_success>
 
 <installing>Installing. . .</installing>
 
-<installfinish>Installed!</installfinish>
+<install_finish>Installed!</install_finish>
 
-<afwexit>Exit</afwexit>
+<afw_exit>Exit</afw_exit>
