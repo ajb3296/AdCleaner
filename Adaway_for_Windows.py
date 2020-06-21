@@ -36,7 +36,7 @@ def download(url, host_name, host_download_fail, host_download_success):
                 pass
             else:
                 break
-        file.write("\n# %s\n" %url)
+        file.write("\n# %s\n\n" %url)
         file.write("%s\n\n" %data)
         file.close()
     return
@@ -53,7 +53,7 @@ def downloadhost(host_download, host_download_fail, host_download_success):
         file = open("hosts/hosts", "w", encoding = 'UTF-8')
     except:
         exit()
-    file.write("# Adaway for Windows")
+    file.write("# Adaway for Windows\n")
     file.close()
 
     # Read host list
