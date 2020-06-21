@@ -70,7 +70,8 @@ def downloadhost(host_download, host_download_fail, host_download_success):
 
         multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success)).start()
     
-    q.join()
+    q.close()
+    q.join_thread()
     f.close()
     return
 
