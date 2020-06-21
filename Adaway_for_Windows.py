@@ -42,6 +42,7 @@ def download(url, host_name, host_download_fail, host_download_success):
     return
 
 def downloadhost(host_download, host_download_fail, host_download_success):
+    q = multiprocessing.Queue()
     # Reset hosts folder
     try:
         shutil.rmtree('hosts')
@@ -68,7 +69,8 @@ def downloadhost(host_download, host_download_fail, host_download_success):
         host_name = re.sub('[\/:*?"<>|.]', '', l)
 
         multiprocessing.Process(target=download, args=(l, host_name)).start()
-
+    
+    q.join()
     f.close()
     return
 
