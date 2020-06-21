@@ -31,7 +31,7 @@ def downloadhost():
         # Host file download
         print("%s : %s" %(hostdownload, line))
 
-        host_name = re.sub(r'\/:*?"<>|', '', line)
+        host_name = re.sub('[\/:*?"<>|.]', '', line)
         urllib.request.urlretrieve(line, "hosts/%s" %host_name)
 
         host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
