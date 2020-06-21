@@ -11,6 +11,7 @@ import shutil
 import socket
 import webbrowser
 import ctypes
+import re
 
 def downloadhost():
     # Reset hosts folder
@@ -19,23 +20,28 @@ def downloadhost():
     except FileNotFoundError:
         pass
     os.mkdir("hosts")
-
-    file = open("hosts/hosts", "w", encoding = 'UTF-8')
+    try:
+        file = open("hosts/hosts", "w", encoding = 'UTF-8')
+    except:
+        exit()
     f = open(hostlist, 'r', encoding = 'UTF-8')
     while True:
         line = f.readline()
         if not line: break
         # Host file download
         print("%s : %s" %(hostdownload, line))
-        urllib.request.urlretrieve(line, "hosts/host")
-        host = open("hosts/host", "r", encoding = 'UTF-8')
+
+        host_name = re.sub(r'\/:*?"<>|', '', line)
+        urllib.request.urlretrieve(line, "hosts/%s" %host_name)
+
+        host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
         h = host.read()
         host.close()
+        os.remove("hosts/%s" %host_name)
         file.write("\n# %s\n" %line)
         file.write("%s\n\n" %h)
     f.close()
     file.close()
-    os.remove("hosts/host")
 
 if __name__ == "__main__":
     
