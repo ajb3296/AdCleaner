@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-# Module import
+# Modules import
 import os
 import time
 from bs4 import BeautifulSoup
@@ -12,8 +12,9 @@ import socket
 import webbrowser
 import ctypes
 import re
+import asyncio
 
-def downloadhost():
+async def downloadhost(header, hostlist, hostdownload):
     # Reset hosts folder
     try:
         shutil.rmtree('hosts')
@@ -32,7 +33,10 @@ def downloadhost():
         print("%s : %s" %(hostdownload, line))
 
         host_name = re.sub('[\/:*?"<>|.]', '', line)
+
+        # Host files download
         urllib.request.urlretrieve(line, "hosts/%s" %host_name)
+        #data = await getReqTEXT (line, header)
 
         host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
         h = host.read()
@@ -43,29 +47,13 @@ def downloadhost():
     f.close()
     file.close()
 
-if __name__ == "__main__":
-    
-    # Check the status of the zip file
-    if not os.path.exists("system/Adaway_for_Windows"):
-        print("Please unzip the file properly and execute it.\n\nPress the ENTER key to exit the program.")
-        os.system("pause")
-        exit()
-
-    # Main program version
-    version = "1.2"
-
-    # Host file list path setting
-    hostlist = "hosts_list.txt"
-    hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
+def main():
 
     # Default Settings
     os.system("title Adaway_for_Windows V.%s" %version)
     os.system("mode.com con cols=120 lines=40")
 
     print("""
-
-
-
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
@@ -156,20 +144,20 @@ if __name__ == "__main__":
         nointernet = soup.find("nointernet").get_text()
         verup = soup.find("verup").get_text()
         status = soup.find("status").get_text()
-        adawayon = soup.find("adawayon").get_text()
-        adawayoff = soup.find("adawayoff").get_text()
-        adawayupdate = soup.find("adawayupdate").get_text()
-        checkupdate = soup.find("checkupdate").get_text()
-        adawaylatestinstall = soup.find("adawaylatestinstall").get_text()
-        adawaydisable = soup.find("adawaydisable").get_text()
-        hostssource = soup.find("hostssource").get_text()
-        hostdownload = soup.find("hostdownload").get_text()
-        hostsislatest = soup.find("hostsislatest").get_text()
-        hostsisoriginal = soup.find("hostsisoriginal").get_text()
+        adaway_on = soup.find("adaway_on").get_text()
+        adaway_off = soup.find("adaway_off").get_text()
+        adaway_update = soup.find("adaway_update").get_text()
+        check_update = soup.find("check_update").get_text()
+        adaway_latest_install = soup.find("adaway_latest_install").get_text()
+        adaway_disable = soup.find("adaway_disable").get_text()
+        hosts_source = soup.find("hosts_source").get_text()
+        host_download = soup.find("host_download").get_text()
+        hosts_is_latest = soup.find("hosts_is_latest").get_text()
+        hosts_is_original = soup.find("hosts_is_original").get_text()
         installing = soup.find("installing").get_text()
-        installfinish = soup.find("installfinish").get_text()
-        mainchoose = soup.find("mainchoose").get_text()
-        afwexit = soup.find("afwexit").get_text()
+        install_finish = soup.find("install_finish").get_text()
+        main_choose = soup.find("main_choose").get_text()
+        afw_exit = soup.find("afw_exit").get_text()
 
 
     # Check your internet connection
@@ -219,7 +207,7 @@ if __name__ == "__main__":
         backup = file.read()
         file.close()
 
-        downloadhost()
+        asyncio.run(downloadhost(header, hostlist, host_download))
 
         file = open("hosts/hosts", "r", encoding = 'UTF-8')
         latesthosts = file.read()
@@ -227,13 +215,13 @@ if __name__ == "__main__":
 
         # Set status
         if hosts == backup:
-            adawaystatus = adawayoff
+            adawaystatus = adaway_off
 
         elif hosts == latesthosts:
-            adawaystatus = adawayon
+            adawaystatus = adaway_on
 
         elif not hosts == latesthosts:
-            adawaystatus = adawayupdate
+            adawaystatus = adaway_update
 
         else:
             adawaystatus = "Status error"
@@ -244,7 +232,6 @@ if __name__ == "__main__":
             print("""------------------------------------------------------------------------------------------------------------------------
 %s : %s
 ------------------------------------------------------------------------------------------------------------------------
-
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
@@ -262,11 +249,10 @@ if __name__ == "__main__":
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
-
 ------------------------------------------------------------------------------------------------------------------------
-""" %(status, adawaystatus, checkupdate, adawaylatestinstall, adawaydisable, hostssource, afwexit))
+""" %(status, adawaystatus, check_update, adaway_latest_install, adaway_disable, hosts_source, afw_exit))
 
-            choose = input("\n%s : " %mainchoose)
+            choose = input("\n%s : " %main_choose)
 
             # Check for updates
             if choose == "1":
@@ -276,8 +262,8 @@ if __name__ == "__main__":
             elif choose == "2":
                 print(installing)
                 while True:
-                    if adawaystatus == adawayon or adawaystatus == hostsislatest:
-                        adawaystatus = hostsislatest
+                    if adawaystatus == adaway_on or adawaystatus == hosts_is_latest:
+                        adawaystatus = hosts_is_latest
                         break
                     try:
                         file = open("hosts/hosts", "r", encoding = 'UTF-8')
@@ -307,15 +293,15 @@ if __name__ == "__main__":
                         break
                     # Flush DNS
                     os.system("ipconfig /flushdns")
-                    print(installfinish)
-                    adawaystatus = adawayon
+                    print(install_finish)
+                    adawaystatus = adaway_on
                     break
 
             # Restore hosts file
             elif choose == "3":
                 while True:
-                    if adawaystatus == adawayoff or adawaystatus == hostsisoriginal:
-                        adawaystatus = hostsisoriginal
+                    if adawaystatus == adaway_off or adawaystatus == hosts_is_original:
+                        adawaystatus = hosts_is_original
                         break
                     try:
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
@@ -331,7 +317,7 @@ if __name__ == "__main__":
                         break
                     # Flush DNS
                     os.system("ipconfig /flushdns")
-                    adawaystatus = adawayoff
+                    adawaystatus = adaway_off
                     break
 
             # Open hosts list
@@ -345,6 +331,19 @@ if __name__ == "__main__":
             else:
                 pass
 
-# This program is not a module!
-else:
-    exit()
+if __name__ == "__main__":
+
+    if not os.path.exists("system/Adaway_for_Windows"):
+        print("Please unzip the file properly and execute it.\n\nPress the ENTER key to exit the program.")
+        os.system("pause")
+        exit()
+    # Main program version
+    version = "1.2"
+
+    # Header
+    header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
+
+    # Host file list path setting
+    hostlist = "hosts_list.txt"
+    hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
+    main()
