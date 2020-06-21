@@ -68,10 +68,11 @@ def downloadhost(host_download, host_download_fail, host_download_success):
         # Make file name
         host_name = re.sub('[\/:*?"<>|.]', '', l)
 
-        multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success)).start()
+        process = multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success)).start()
     
     q.close()
     q.join_thread()
+    process.join()
     f.close()
     return
 
