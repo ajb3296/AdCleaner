@@ -230,6 +230,13 @@ if __name__ == "__main__":
                 break
             urls.append(l)
         f.close()
+        
+        # Make hosts folder
+        try:
+            shutil.rmtree('hosts')
+        except FileNotFoundError:
+            pass
+        os.mkdir("hosts")
 
         # Make temp hosts file
         try:
