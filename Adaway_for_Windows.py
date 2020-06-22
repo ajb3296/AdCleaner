@@ -15,7 +15,7 @@ import re
 import asyncio
 
 async def download(url):
-    # 파일명 만들기
+    # Make file name
     host_name = "%s.txt" %re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")
     print("%s : %s" %(host_download, url))
     try:
@@ -24,7 +24,6 @@ async def download(url):
         print("%s : %s" %(host_download_fail, url))
         return "fail"
     else:
-        # 성공 시 response 상태정보 확인
         print("%s : %s" %(host_download_success, url))
         return host_name
 
@@ -36,7 +35,7 @@ async def downloadhost():
     try:
         file = open("hosts/hosts", "a", encoding = 'UTF-8')
     except:
-        print("임시 호스트파일 오류!")
+        print(temp_host_error)
 
     for i in r:
         if i == "fail":
