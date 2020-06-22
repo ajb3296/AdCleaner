@@ -35,6 +35,7 @@
 <host_download>Downloading. . .</host_download>
 <host_download_fail>Download failed!</host_download_fail>
 <host_download_success>Download successful!</host_download_success>
+<temp_host_error>Temporary host file error!</temp_host_error>
 
 <installing>Installing. . .</installing>
 
