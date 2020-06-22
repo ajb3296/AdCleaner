@@ -12,71 +12,59 @@ import socket
 import webbrowser
 import ctypes
 import re
-import multiprocessing
+import asyncio
 
-def download(url, host_name, host_download_fail, host_download_success):
+async def download(url):
+    # 파일명 만들기
+    host_name = "%s.txt" %re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")
+    print("%s : %s" %(host_download, url))
     try:
-        urllib.request.urlretrieve(url, "hosts/%s" %host_name)
-
+        await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
     except Exception as e:
         print("%s : %s" %(host_download_fail, url))
-
+        return "fail"
     else:
+        # 성공 시 response 상태정보 확인
         print("%s : %s" %(host_download_success, url))
-        host = open("hosts/%s" %host_name, "r", encoding = 'UTF-8')
-        data = host.read()
-        host.close()
-        # Remove unnecessary files
-        os.remove("hosts/%s" %host_name)
+        return host_name
 
-        while True:
-            try:
-                file = open("hosts/hosts", "a", encoding = 'UTF-8')
-            except:
-                pass
-            else:
-                break
-        file.write("\n# %s\n\n" %url)
-        file.write("%s\n\n" %data)
-        file.close()
-    return
+async def downloadhost():
 
-def downloadhost(finishdownload, host_download, host_download_fail, host_download_success):
-    q = multiprocessing.Queue()
-    # Reset hosts folder
+    fts = [asyncio.ensure_future(download(u)) for u in urls]
+    r = await asyncio.gather(*fts)
+
     try:
-        shutil.rmtree('hosts')
-    except FileNotFoundError:
-        pass
-    os.mkdir("hosts")
-    try:
-        file = open("hosts/hosts", "w", encoding = 'UTF-8')
+        file = open("hosts/hosts", "a", encoding = 'UTF-8')
     except:
-        exit()
-    file.write("# Adaway for Windows\n")
+        print("임시 호스트파일 오류!")
+
+    for i in r:
+        if i == "fail":
+            pass
+        else:
+            host = open("hosts/%s" %i, "r", encoding = 'UTF-8')
+            data = host.read()
+            host.close()
+
+            # 필요없는 파일 제거
+            os.remove("hosts/%s" %i)
+
+            file.write("%s\n\n" %data)
     file.close()
 
-    # Read host list
-    f = open(hostlist, 'r', encoding = 'UTF-8')
-    while True:
-        l = f.readline()
-        if not l:
-            break
+if __name__ == "__main__":
 
-        print("%s : %s" %(host_download, l))
+    if not os.path.exists("system/Adaway_for_Windows"):
+        print("Please unzip the file properly and execute it.\n\nPress the ENTER key to exit the program.")
+        os.system("pause")
+        exit()
 
-        # Make file name
-        host_name = re.sub('[\/:*?"<>|.]', '', l)
+    # Main program version
+    version = "1.2"
 
-        process = multiprocessing.Process(target=download, args=(l, host_name, host_download_fail, host_download_success))
-        process.start()
-
-    process.join()
-    f.close()
-    finishdownload.send('Download complete!')
-    finishdownload.close()
-
-def main():
+    # Host file list path setting
+    hostlist = "hosts_list.txt"
+    hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
 
     # Default Settings
     os.system("title Adaway_for_Windows V.%s" %version)
@@ -101,7 +89,7 @@ def main():
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
     """ %version)
-
+    '''
     # Chack admin permission
     if ctypes.windll.shell32.IsUserAnAdmin(): 
         pass
@@ -109,7 +97,7 @@ def main():
         print("This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.")
         os.system("pause")
         exit()
-
+    '''
     while True:
         # Select language if setting file does not exist
         if not os.path.exists("setting.xml"):
@@ -186,7 +174,8 @@ def main():
         afw_exit = soup.find("afw_exit").get_text()
         host_download_fail = soup.find("host_download_fail").get_text()
         host_download_success = soup.find("host_download_success").get_text()
-
+        temp_host_error = soup.find("temp_host_error").get_text()
+    
     # Check your internet connection
     ipaddress = socket.gethostbyname(socket.gethostname())
 
@@ -234,11 +223,27 @@ def main():
         backup = file.read()
         file.close()
 
-        finish_download_host, finishdownload = multiprocessing.Pipe()
-        main_host_download = multiprocessing.Process(target=downloadhost, args=(finishdownload, host_download, host_download_fail, host_download_success,))
-        main_host_download.start()
-        finish_download_host = finish_download_host.recv()
-        main_host_download.join()
+        urls = []
+        f = open(hostlist, 'r', encoding = 'UTF-8')
+        while True:
+            l = f.readline()
+            if not l:
+                break
+            urls.append(l)
+        f.close()
+
+        # Make temp hosts file
+        try:
+            file = open("hosts/hosts", "w", encoding = 'UTF-8')
+        except:
+            exit()
+        file.write("# Adaway for Windows")
+        file.close()
+
+        # Hosts Download
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(downloadhost())
+        loop.close
 
         file = open("hosts/hosts", "r", encoding = 'UTF-8')
         latesthosts = file.read()
@@ -361,17 +366,3 @@ def main():
 
             else:
                 pass
-
-if __name__ == "__main__":
-
-    if not os.path.exists("system/Adaway_for_Windows"):
-        print("Please unzip the file properly and execute it.\n\nPress the ENTER key to exit the program.")
-        os.system("pause")
-        exit()
-    # Main program version
-    version = "1.2"
-
-    # Host file list path setting
-    hostlist = "hosts_list.txt"
-    hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
-    main()
