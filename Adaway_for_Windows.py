@@ -45,7 +45,7 @@ async def downloadhost():
             data = host.read()
             host.close()
 
-            # 필요없는 파일 제거
+            # Remove unnecessary file
             os.remove("hosts/%s" %i)
 
             file.write("%s\n\n" %data)
@@ -88,7 +88,7 @@ if __name__ == "__main__":
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
     """ %version)
-    '''
+    
     # Chack admin permission
     if ctypes.windll.shell32.IsUserAnAdmin(): 
         pass
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         print("This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.")
         os.system("pause")
         exit()
-    '''
+    
     while True:
         # Select language if setting file does not exist
         if not os.path.exists("setting.xml"):
@@ -138,7 +138,6 @@ if __name__ == "__main__":
         exit()
 
     else:
-
 
         # Reading language pack
         file = open("language/%s.xml" %language, "r", encoding = 'UTF-8')
@@ -230,7 +229,7 @@ if __name__ == "__main__":
                 break
             urls.append(l)
         f.close()
-        
+
         # Make hosts folder
         try:
             shutil.rmtree('hosts')
@@ -242,7 +241,7 @@ if __name__ == "__main__":
         try:
             file = open("hosts/hosts", "w", encoding = 'UTF-8')
         except:
-            exit()
+            print(temp_host_error)
         file.write("# Adaway for Windows")
         file.close()
 
@@ -298,6 +297,7 @@ if __name__ == "__main__":
 
             # Check for updates
             if choose == "1":
+                os.system("cls")
                 break
 
             # Install hosts file
