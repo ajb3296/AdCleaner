@@ -20,7 +20,7 @@ async def download(url):
     print("%s : %s" %(host_download, url))
     try:
         await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
-    except Exception as e:
+    except:
         print("%s : %s" %(host_download_fail, url))
         return "fail"
     else:
