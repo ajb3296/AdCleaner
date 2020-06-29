@@ -319,8 +319,6 @@ if __name__ == "__main__":
                         adawaystatus = "Unknown error"
                         file.close()
                         break
-                    latesthosts = file.read()
-                    file.close()
                     try:
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
                         file.write(latesthosts)
