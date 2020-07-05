@@ -242,6 +242,8 @@ if __name__ == "__main__":
             file = open("hosts/hosts", "w", encoding = 'UTF-8')
         except:
             print(temp_host_error)
+            os.system("pause")
+            exit()
         file.write("# Adaway for Windows")
         file.close()
 
