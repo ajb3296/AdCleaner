@@ -19,6 +19,7 @@ async def download(url):
     host_name = "%s.txt" %re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")
     print("%s : %s" %(host_download, url))
     try:
+        # Download hosts file
         await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
     except:
         print("%s : %s" %(host_download_fail, url))
