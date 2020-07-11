@@ -70,7 +70,7 @@ if __name__ == "__main__":
     os.system("title Adaway_for_Windows V.%s" %version)
     os.system("mode.com con cols=120 lines=40")
 
-    print("""
+    print(f"""
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
         BBQMRQg:.   ...igBBBQ..rBRQQBB       
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       Adaway for Windows V.%s
+        BBQgMgQQRX.           iBBMMMBB       Adaway for Windows V.{version}
         BBgMgMgQBB            PBQRgRQB       Developer : 천상의나무
         BBRgRgRgQQM    :.     MBRgMMBB       Loading. . .
         BBMRgRgRMQBBBBBB:    LBQgMgQBB       
@@ -88,7 +88,7 @@ if __name__ == "__main__":
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
-    """ %version)
+    """)
     
     # Chack admin permission
     if ctypes.windll.shell32.IsUserAnAdmin(): 
@@ -273,8 +273,8 @@ if __name__ == "__main__":
         while True:
 
             os.system("cls")
-            print("""------------------------------------------------------------------------------------------------------------------------
-%s : %s
+            print(f"""------------------------------------------------------------------------------------------------------------------------
+{status} : {adawaystatus}
 ------------------------------------------------------------------------------------------------------------------------
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
@@ -283,18 +283,18 @@ if __name__ == "__main__":
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
         BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       1. %s
-        BBgMgMgQBB            PBQRgRQB       2. %s
-        BBRgRgRgQQM    :.     MBRgMMBB       3. %s
-        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. %s
-        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. %s
+        BBQgMgQQRX.           iBBMMMBB       1. {check_update}
+        BBgMgMgQBB            PBQRgRQB       2. {adaway_latest_install}
+        BBRgRgRgQQM    :.     MBRgMMBB       3. {adaway_disable}
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. {hosts_source}
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. {afw_exit}
         :BQBRQgMgRBP      BBQQMMgQBBB:       
           vBBQQgRgQQB2P  hBQQMQRBBBr         
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
 ------------------------------------------------------------------------------------------------------------------------
-""" %(status, adawaystatus, check_update, adaway_latest_install, adaway_disable, hosts_source, afw_exit))
+""")
 
             choose = input("\n%s : " %main_choose)
 
