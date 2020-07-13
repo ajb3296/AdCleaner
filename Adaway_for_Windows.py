@@ -336,6 +336,8 @@ if __name__ == "__main__":
                         break
                     # Flush DNS
                     os.system("ipconfig /flushdns")
+                    # Disable client DNS cache service at boot time
+                    os.system("sc config dnscache start= disabled")
                     print(install_finish)
                     adawaystatus = adaway_on
                     break
@@ -360,6 +362,8 @@ if __name__ == "__main__":
                         break
                     # Flush DNS
                     os.system("ipconfig /flushdns")
+                    # Enable client DNS cache service at boot time
+                    os.system("sc config dnscache start= enabled")
                     adawaystatus = adaway_off
                     break
 
