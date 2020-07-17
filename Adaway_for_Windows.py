@@ -62,12 +62,15 @@ if __name__ == "__main__":
     # Main program version
     version = "1.2"
 
+    # Set program name
+    program_name = "Adaway for Windows"
+
     # Host file list path setting
     hostlist = "hosts_list.txt"
     hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
 
     # Default Settings
-    os.system("title Adaway_for_Windows V.%s" %version)
+    os.system(f"title {program_name.replace(" ", "_")} V.{version}")
     os.system("mode.com con cols=120 lines=40")
 
     print(f"""
@@ -78,7 +81,7 @@ if __name__ == "__main__":
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
         BBQMRQg:.   ...igBBBQ..rBRQQBB       
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       Adaway for Windows V.{version}
+        BBQgMgQQRX.           iBBMMMBB       {program_name} V.{version}
         BBgMgMgQBB            PBQRgRQB       Developer : 천상의나무
         BBRgRgRgQQM    :.     MBRgMMBB       Loading. . .
         BBMRgRgRMQBBBBBB:    LBQgMgQBB       
@@ -281,7 +284,7 @@ if __name__ == "__main__":
             PBBBRQMRMQMRMRgRMQQBBh           
           JBBBBBBBBQBQQQQgMgQRBQBQB7         
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
-        BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       {program_name}
         QBMMgMBBi:       iPL   :BQMQQB       
         BBQgMgQQRX.           iBBMMMBB       1. {check_update}
         BBgMgMgQBB            PBQRgRQB       2. {adaway_latest_install}
