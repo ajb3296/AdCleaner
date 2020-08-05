@@ -70,7 +70,7 @@ if __name__ == "__main__":
     hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
 
     # Default Settings
-    os.system(f"title {program_name.replace(" ", "_")} V.{version}")
+    os.system(f"title {program_name.replace(' ', '_')} V.{version}")
     os.system("mode.com con cols=120 lines=40")
 
     print(f"""
@@ -111,13 +111,13 @@ if __name__ == "__main__":
 
             language = input("\nEnter file name excluding filename extension : ")
 
-            if os.path.exists("language/%s.xml" %language):
+            if os.path.exists(f"language/{language}.xml"):
 
                 # Create setting file
                 file = open("setting.xml", "w", encoding = 'UTF-8')
                 file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 file.write("<!-- Language (언어) -->\n")
-                file.write("<language>%s</language>\n" %language)
+                file.write(f"<language>{language}</language>\n")
                 file.close()
 
                 break
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     language = language.get_text()
 
     # Check for the existence of language packs for the language you want to use
-    if not os.path.exists("language/%s.xml" %language):
+    if not os.path.exists(f"language/{language}.xml"):
         print("The language pack for the language you entered does not exist.\nAdd the desired language pack to the language folder or select another language.")
         os.system("pause")
         exit()
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     else:
 
         # Reading language pack
-        file = open("language/%s.xml" %language, "r", encoding = 'UTF-8')
+        file = open(f"language/{language}.xml", "r", encoding = 'UTF-8')
         languagecode = file.read()
         file.close()
         soup = BeautifulSoup(languagecode, 'lxml')
@@ -372,7 +372,7 @@ if __name__ == "__main__":
 
             # Open hosts list
             elif choose == "4":
-                os.system("start %s" %hostlist)
+                os.system(f"start {hostlist}")
 
             # Exit
             elif choose == "5":
