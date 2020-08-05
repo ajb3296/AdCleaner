@@ -16,16 +16,16 @@ import asyncio
 
 async def download(url):
     # Make file name
-    host_name = "%s.txt" %re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")
-    print("%s : %s" %(host_download, url))
+    host_name = f"{re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")}.txt"
+    print(f"{host_download} : {url}")
     try:
         # Download hosts file
-        await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
+        await loop.run_in_executor(None, urllib.request.urlretrieve, url, f"hosts/{host_name}")
     except:
-        print("%s : %s" %(host_download_fail, url))
+        print(f"{host_download_fail} : {url}")
         return "fail"
     else:
-        print("%s : %s" %(host_download_success, url))
+        print(f"{host_download_success} : {url}")
         return host_name
 
 async def downloadhost():
@@ -42,14 +42,14 @@ async def downloadhost():
         if i == "fail":
             pass
         else:
-            host = open("hosts/%s" %i, "r", encoding = 'UTF-8')
+            host = open(f"hosts/{i}", "r", encoding = 'UTF-8')
             data = host.read()
             host.close()
 
             # Remove unnecessary file
-            os.remove("hosts/%s" %i)
+            os.remove(f"hosts/{i}")
 
-            file.write("%s\n\n" %data)
+            file.write(f"{data}\n\n")
     file.close()
 
 if __name__ == "__main__":
