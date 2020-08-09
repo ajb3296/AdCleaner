@@ -152,8 +152,7 @@ if __name__ == "__main__":
         afwver = afwver.get_text()
         # Check compatibility of language packs and programs
         if not afwver == version:
-            languageerror = soup.find("languageerror")
-            languageerror = languageerror.get_text()
+            languageerror = soup.find("languageerror").get_text()
             print(languageerror)
             os.system("pause")
             exit()
