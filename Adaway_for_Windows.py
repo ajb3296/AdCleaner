@@ -16,7 +16,8 @@ import asyncio
 
 async def download(url):
     # Make file name
-    host_name = f"{re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")}.txt"
+    LinkFileName = re.sub('[\/:*?" <> |.]', '', url).replace('\n', '')
+    host_name = "%s.txt" %LinkFileName
     print(f"{host_download} : {url}")
     try:
         # Download hosts file
