@@ -15,15 +15,15 @@ import asyncio
 
 async def download(url):
     # Make file name
-    host_name = "%s.txt" %re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")
-    print("%s : %s" %(host_download, url))
+    host_name = "%s.txt" %re.sub('[\/:*?" <> |.]', '', url).replace('\n', '')
+    print(f"{host_download} : {url}")
     try:
         await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
     except Exception:
-        print("%s : %s" %(host_download_fail, url))
+        print(f"{host_download_fail} : {url}")
         return "fail"
     else:
-        print("%s : %s" %(host_download_success, url))
+        print(f"{host_download_success} : {url}")
         return host_name
 
 async def downloadhost():
@@ -43,9 +43,9 @@ async def downloadhost():
             host.close()
 
             # Remove unnecessary file
-            os.remove("hosts/%s" %i)
+            os.remove(f"hosts/{i}")
 
-            file.write("%s\n\n" %data)
+            file.write(f"{data}\n\n")
     file.close()
 
 if __name__ == "__main__":
@@ -64,13 +64,15 @@ if __name__ == "__main__":
     hostlist = "hosts_list.txt"
     hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
 
+    program_name = "Adaway for Windows"
+
     # Default Settings
-    os.system("title Adaway_for_Windows V.%s" %version)
+    os.system(f"title {program_name.replace(' ', '_')} V.{version}")
     os.system("mode.com con cols=120 lines=40")
 
     SettingPath = "setting.xml"
 
-    print("""
+    print(f"""
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
@@ -78,7 +80,7 @@ if __name__ == "__main__":
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
         BBQMRQg:.   ...igBBBQ..rBRQQBB       
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       Adaway for Windows V.%s
+        BBQgMgQQRX.           iBBMMMBB       {program_name} V.{version}
         BBgMgMgQBB            PBQRgRQB       Developer : 천상의나무
         BBRgRgRgQQM    :.     MBRgMMBB       Loading. . .
         BBMRgRgRMQBBBBBB:    LBQgMgQBB       
@@ -88,7 +90,7 @@ if __name__ == "__main__":
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
-    """ %version)
+    """)
     
     # Chack admin permission
     if not ctypes.windll.shell32.IsUserAnAdmin():
@@ -106,13 +108,13 @@ if __name__ == "__main__":
 
             language = input("\nEnter file name excluding filename extension : ")
 
-            if os.path.exists("language/%s.xml" %language):
+            if os.path.exists(f"language/{language}.xml"):
 
                 # Create setting file
                 file = open(SettingPath, "w", encoding = 'UTF-8')
                 file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 file.write("<!-- Language (언어) -->\n")
-                file.write("<language>%s</language>\n" %language)
+                file.write(f"<language>{language}</language>\n")
                 file.close()
 
                 break
@@ -148,8 +150,7 @@ if __name__ == "__main__":
         afwver = afwver.get_text()
         # Check compatibility of language packs and programs
         if not afwver == version:
-            languageerror = soup.find("languageerror")
-            languageerror = languageerror.get_text()
+            languageerror = soup.find("languageerror").get_text()
             print(languageerror)
             os.system("pause")
             exit()
@@ -232,6 +233,13 @@ if __name__ == "__main__":
             urls.append(l)
         f.close()
 
+        # Make hosts folder	
+        try:	
+            shutil.rmtree('hosts')	
+        except FileNotFoundError:	
+            pass	
+        os.mkdir("hosts")
+
         # Make temp hosts file
         try:
             file = open(TempHosts, "w", encoding = 'UTF-8')
@@ -265,28 +273,28 @@ if __name__ == "__main__":
         while True:
 
             os.system("cls")
-            print("""------------------------------------------------------------------------------------------------------------------------
-%s : %s
+            print(f"""------------------------------------------------------------------------------------------------------------------------
+{status} : {adawaystatus}
 ------------------------------------------------------------------------------------------------------------------------
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
           JBBBBBBBBQBQQQQgMgQRBQBQB7         
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
-        BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       {program_name}
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       1. %s
-        BBgMgMgQBB            PBQRgRQB       2. %s
-        BBRgRgRgQQM    :.     MBRgMMBB       3. %s
-        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. %s
-        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. %s
+        BBQgMgQQRX.           iBBMMMBB       1. {check_update}
+        BBgMgMgQBB            PBQRgRQB       2. {adaway_latest_install}
+        BBRgRgRgQQM    :.     MBRgMMBB       3. {adaway_disable}
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. {hosts_source}
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. {afw_exit}
         :BQBRQgMgRBP      BBQQMMgQBBB:       
           vBBQQgRgQQB2P  hBQQMQRBBBr         
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
 ------------------------------------------------------------------------------------------------------------------------
-""" %(status, adawaystatus, check_update, adaway_latest_install, adaway_disable, hosts_source, afw_exit))
+""")
 
             choose = input("\n%s : " %main_choose)
 
@@ -358,7 +366,7 @@ if __name__ == "__main__":
 
             # Open hosts list
             elif choose == "4":
-                os.system("start %s" %hostlist)
+                os.system(f"start {hostlist}")
 
             # Exit
             elif choose == "5":
