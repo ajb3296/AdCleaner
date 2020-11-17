@@ -6,7 +6,6 @@ import time
 from bs4 import BeautifulSoup
 import requests
 import urllib.request
-import zipfile
 import shutil
 import socket
 import webbrowser
@@ -16,17 +15,15 @@ import asyncio
 
 async def download(url):
     # Make file name
-    LinkFileName = re.sub('[\/:*?" <> |.]', '', url).replace('\n', '')
-    host_name = "%s.txt" %LinkFileName
-    print(f"{host_download} : {url}")
+    host_name = "%s.txt" %re.sub('[\/:*?"<>|.]', '', url).replace("\n", "")
+    print("%s : %s" %(host_download, url))
     try:
-        # Download hosts file
-        await loop.run_in_executor(None, urllib.request.urlretrieve, url, f"hosts/{host_name}")
-    except:
-        print(f"{host_download_fail} : {url}")
+        await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
+    except Exception:
+        print("%s : %s" %(host_download_fail, url))
         return "fail"
     else:
-        print(f"{host_download_success} : {url}")
+        print("%s : %s" %(host_download_success, url))
         return host_name
 
 async def downloadhost():
@@ -35,22 +32,20 @@ async def downloadhost():
     r = await asyncio.gather(*fts)
 
     try:
-        file = open("hosts/hosts", "a", encoding = 'UTF-8')
+        file = open(TempHosts, "a", encoding = 'UTF-8')
     except:
         print(temp_host_error)
 
     for i in r:
-        if i == "fail":
-            pass
-        else:
-            host = open(f"hosts/{i}", "r", encoding = 'UTF-8')
+        if not i == "fail":
+            host = open("hosts/%s" %i, "r", encoding = 'UTF-8')
             data = host.read()
             host.close()
 
             # Remove unnecessary file
-            os.remove(f"hosts/{i}")
+            os.remove("hosts/%s" %i)
 
-            file.write(f"{data}\n\n")
+            file.write("%s\n\n" %data)
     file.close()
 
 if __name__ == "__main__":
@@ -63,18 +58,19 @@ if __name__ == "__main__":
     # Main program version
     version = "1.2"
 
-    # Set program name
-    program_name = "Adaway for Windows"
-
-    # Host file list path setting
+    # Path setting
+    TempHosts = "hosts/hosts"
+    BackupHosts = "backup/hosts"
     hostlist = "hosts_list.txt"
     hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
 
     # Default Settings
-    os.system(f"title {program_name.replace(' ', '_')} V.{version}")
+    os.system("title Adaway_for_Windows V.%s" %version)
     os.system("mode.com con cols=120 lines=40")
 
-    print(f"""
+    SettingPath = "setting.xml"
+
+    print("""
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
@@ -82,7 +78,7 @@ if __name__ == "__main__":
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
         BBQMRQg:.   ...igBBBQ..rBRQQBB       
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       {program_name} V.{version}
+        BBQgMgQQRX.           iBBMMMBB       Adaway for Windows V.%s
         BBgMgMgQBB            PBQRgRQB       Developer : 천상의나무
         BBRgRgRgQQM    :.     MBRgMMBB       Loading. . .
         BBMRgRgRMQBBBBBB:    LBQgMgQBB       
@@ -92,19 +88,17 @@ if __name__ == "__main__":
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
-    """)
+    """ %version)
     
     # Chack admin permission
-    if ctypes.windll.shell32.IsUserAnAdmin(): 
-        pass
-    else:
+    if not ctypes.windll.shell32.IsUserAnAdmin():
         print("This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.")
         os.system("pause")
         exit()
     
     while True:
         # Select language if setting file does not exist
-        if not os.path.exists("setting.xml"):
+        if not os.path.exists(SettingPath):
             print("\nPlease select a language.\n")
             for file in os.listdir("language"):
                 if file.endswith(".xml"):
@@ -112,13 +106,13 @@ if __name__ == "__main__":
 
             language = input("\nEnter file name excluding filename extension : ")
 
-            if os.path.exists(f"language/{language}.xml"):
+            if os.path.exists("language/%s.xml" %language):
 
                 # Create setting file
-                file = open("setting.xml", "w", encoding = 'UTF-8')
+                file = open(SettingPath, "w", encoding = 'UTF-8')
                 file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 file.write("<!-- Language (언어) -->\n")
-                file.write(f"<language>{language}</language>\n")
+                file.write("<language>%s</language>\n" %language)
                 file.close()
 
                 break
@@ -129,15 +123,16 @@ if __name__ == "__main__":
             break
 
     # Reading setting file
-    file = open("setting.xml", "r", encoding = 'UTF-8')
+    file = open(SettingPath, "r", encoding = 'UTF-8')
     setting = file.read()
     file.close()
     soup = BeautifulSoup(setting, 'lxml')
     language = soup.find("language")
     language = language.get_text()
+    language_path = (f"language/{language}.xml")
 
     # Check for the existence of language packs for the language you want to use
-    if not os.path.exists(f"language/{language}.xml"):
+    if not os.path.exists(language_path):
         print("The language pack for the language you entered does not exist.\nAdd the desired language pack to the language folder or select another language.")
         os.system("pause")
         exit()
@@ -145,7 +140,7 @@ if __name__ == "__main__":
     else:
 
         # Reading language pack
-        file = open(f"language/{language}.xml", "r", encoding = 'UTF-8')
+        file = open(language_path, "r", encoding = 'UTF-8')
         languagecode = file.read()
         file.close()
         soup = BeautifulSoup(languagecode, 'lxml')
@@ -153,7 +148,8 @@ if __name__ == "__main__":
         afwver = afwver.get_text()
         # Check compatibility of language packs and programs
         if not afwver == version:
-            languageerror = soup.find("languageerror").get_text()
+            languageerror = soup.find("languageerror")
+            languageerror = languageerror.get_text()
             print(languageerror)
             os.system("pause")
             exit()
@@ -177,6 +173,8 @@ if __name__ == "__main__":
         host_download_fail = soup.find("host_download_fail").get_text()
         host_download_success = soup.find("host_download_success").get_text()
         temp_host_error = soup.find("temp_host_error").get_text()
+
+        Unknown_error = "Unknown error"
     
     # Check your internet connection
     ipaddress = socket.gethostbyname(socket.gethostname())
@@ -210,18 +208,18 @@ if __name__ == "__main__":
         file = open(hostsfilepath, "r", encoding = 'UTF-8')
         hosts = file.read()
         file.close()
-        if not os.path.exists("backup/hosts"):
+        if not os.path.exists(BackupHosts):
             # Backup of existing 'C:\Windows\System32\drivers\etc\hosts' file on first run of the program
             try:
                 shutil.rmtree('backup')
             except FileNotFoundError:
                 pass
             os.mkdir("backup")
-            file = open("backup/hosts", "w", encoding = 'UTF-8')
+            file = open(BackupHosts, "w", encoding = 'UTF-8')
             file.write(hosts)
             file.close()
 
-        file = open("backup/hosts", "r", encoding = 'UTF-8')
+        file = open(BackupHosts, "r", encoding = 'UTF-8')
         backup = file.read()
         file.close()
 
@@ -234,20 +232,11 @@ if __name__ == "__main__":
             urls.append(l)
         f.close()
 
-        # Make hosts folder
-        try:
-            shutil.rmtree('hosts')
-        except FileNotFoundError:
-            pass
-        os.mkdir("hosts")
-
         # Make temp hosts file
         try:
-            file = open("hosts/hosts", "w", encoding = 'UTF-8')
+            file = open(TempHosts, "w", encoding = 'UTF-8')
         except:
-            print(temp_host_error)
-            os.system("pause")
-            exit()
+            raise PermissionError(f'Failed to create temporary {TempHosts}')
         file.write("# Adaway for Windows")
         file.close()
 
@@ -256,7 +245,7 @@ if __name__ == "__main__":
         loop.run_until_complete(downloadhost())
         loop.close
 
-        file = open("hosts/hosts", "r", encoding = 'UTF-8')
+        file = open(TempHosts, "r", encoding = 'UTF-8')
         latesthosts = file.read()
         file.close()
 
@@ -276,34 +265,33 @@ if __name__ == "__main__":
         while True:
 
             os.system("cls")
-            print(f"""------------------------------------------------------------------------------------------------------------------------
-{status} : {adawaystatus}
+            print("""------------------------------------------------------------------------------------------------------------------------
+%s : %s
 ------------------------------------------------------------------------------------------------------------------------
                rQBBBBBBBBBBBBBi              
              .BBBBBQBQBBBQBQBBBR.            
             PBBBRQMRMQMRMRgRMQQBBh           
           JBBBBBBBBQBQQQQgMgQRBQBQB7         
         iBBBRB1:1MBBQBBBBBQBQBQBQQBBBi       
-        BBQMRQg:.   ...igBBBQ..rBRQQBB       {program_name}
+        BBQMRQg:.   ...igBBBQ..rBRQQBB       Adaway for Windows
         QBMMgMBBi:       iPL   :BQMQQB       
-        BBQgMgQQRX.           iBBMMMBB       1. {check_update}
-        BBgMgMgQBB            PBQRgRQB       2. {adaway_latest_install}
-        BBRgRgRgQQM    :.     MBRgMMBB       3. {adaway_disable}
-        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. {hosts_source}
-        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. {afw_exit}
+        BBQgMgQQRX.           iBBMMMBB       1. %s
+        BBgMgMgQBB            PBQRgRQB       2. %s
+        BBRgRgRgQQM    :.     MBRgMMBB       3. %s
+        BBMRgRgRMQBBBBBB:    LBQgMgQBB       4. %s
+        BBBRRgRgRMBBg7     rBBBMRgQQBB       5. %s
         :BQBRQgMgRBP      BBQQMMgQBBB:       
           vBBQQgRgQQB2P  hBQQMQRBBBr         
             XBBBMQMQQBBBQBQQgQQBB2           
               QBBBBBBBBQBBBQBBBD             
                iBBBBBBBBQBQBBB:              
 ------------------------------------------------------------------------------------------------------------------------
-""")
+""" %(status, adawaystatus, check_update, adaway_latest_install, adaway_disable, hosts_source, afw_exit))
 
             choose = input("\n%s : " %main_choose)
 
             # Check for updates
             if choose == "1":
-                os.system("cls")
                 break
 
             # Install hosts file
@@ -314,7 +302,7 @@ if __name__ == "__main__":
                         adawaystatus = hosts_is_latest
                         break
                     try:
-                        file = open("hosts/hosts", "r", encoding = 'UTF-8')
+                        file = open(TempHosts, "r", encoding = 'UTF-8')
                         latesthosts = file.read()
                         file.close()
                     except PermissionError:
@@ -322,9 +310,11 @@ if __name__ == "__main__":
                         file.close()
                         break
                     except:
-                        adawaystatus = "Unknown error"
+                        adawaystatus = Unknown_error
                         file.close()
                         break
+                    latesthosts = file.read()
+                    file.close()
                     try:
                         file = open(hostsfilepath, "w", encoding = 'UTF-8')
                         file.write(latesthosts)
@@ -334,13 +324,11 @@ if __name__ == "__main__":
                         file.close()
                         break
                     except:
-                        adawaystatus = "Unknown error"
+                        adawaystatus = Unknown_error
                         file.close()
                         break
                     # Flush DNS
                     os.system("ipconfig /flushdns")
-                    # Disable client DNS cache service at boot time
-                    os.system("sc config dnscache start= disabled")
                     print(install_finish)
                     adawaystatus = adaway_on
                     break
@@ -365,14 +353,12 @@ if __name__ == "__main__":
                         break
                     # Flush DNS
                     os.system("ipconfig /flushdns")
-                    # Enable client DNS cache service at boot time
-                    os.system("sc config dnscache start= enabled")
                     adawaystatus = adaway_off
                     break
 
             # Open hosts list
             elif choose == "4":
-                os.system(f"start {hostlist}")
+                os.system("start %s" %hostlist)
 
             # Exit
             elif choose == "5":
