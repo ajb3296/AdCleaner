@@ -12,6 +12,7 @@ import webbrowser
 import ctypes
 import re
 import asyncio
+import subprocess
 
 async def download(url):
     # Make file name
@@ -33,7 +34,7 @@ async def downloadhost():
 
     try:
         file = open(TempHosts, "a", encoding = 'UTF-8')
-    except:
+    except Exception:
         print(temp_host_error)
 
     for i in r:
@@ -52,7 +53,7 @@ if __name__ == "__main__":
 
     if not os.path.exists("system/Adaway_for_Windows"):
         print("Please unzip the file properly and execute it.\n\nPress the ENTER key to exit the program.")
-        os.system("pause")
+        subprocess.call("pause", shell=False)
         exit()
 
     # Main program version
@@ -67,8 +68,8 @@ if __name__ == "__main__":
     program_name = "Adaway for Windows"
 
     # Default Settings
-    os.system(f"title {program_name.replace(' ', '_')} V.{version}")
-    os.system("mode.com con cols=120 lines=40")
+    subprocess.call(f"title {program_name.replace(' ', '_')} V.{version}", shell=False)
+    subprocess.call("mode.com con cols=120 lines=40", shell=False)
 
     SettingPath = "setting.xml"
 
@@ -95,7 +96,7 @@ if __name__ == "__main__":
     # Chack admin permission
     if not ctypes.windll.shell32.IsUserAnAdmin():
         print("This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.")
-        os.system("pause")
+        subprocess.call("pause", shell=False)
         exit()
     
     while True:
@@ -119,7 +120,7 @@ if __name__ == "__main__":
 
                 break
             else:
-                os.system("cls")
+                subprocess.call("cls", shell=False)
                 print("The language pack for the language you entered does not exist.\nAdd the desired language pack to the language folder or select another language.")
         else:
             break
@@ -136,7 +137,7 @@ if __name__ == "__main__":
     # Check for the existence of language packs for the language you want to use
     if not os.path.exists(language_path):
         print("The language pack for the language you entered does not exist.\nAdd the desired language pack to the language folder or select another language.")
-        os.system("pause")
+        subprocess.call("pause", shell=False)
         exit()
 
     else:
@@ -152,7 +153,7 @@ if __name__ == "__main__":
         if not afwver == version:
             languageerror = soup.find("languageerror").get_text()
             print(languageerror)
-            os.system("pause")
+            subprocess.call("pause", shell=False)
             exit()
         nointernet = soup.find("nointernet").get_text()
         verup = soup.find("verup").get_text()
@@ -201,7 +202,7 @@ if __name__ == "__main__":
     # When you are not connected to the Internet
     else:
         print(nointernet)
-        os.system("pause")
+        subprocess.call("pause", shell=False)
         exit()
 
     while True:
@@ -271,8 +272,7 @@ if __name__ == "__main__":
             adawaystatus = "Status error"
 
         while True:
-
-            os.system("cls")
+            subprocess.call("cls", shell=False)
             print(f"""------------------------------------------------------------------------------------------------------------------------
 {status} : {adawaystatus}
 ------------------------------------------------------------------------------------------------------------------------
@@ -317,7 +317,7 @@ if __name__ == "__main__":
                         adawaystatus = "Permission Error. Please restart program - latesthosts read error"
                         file.close()
                         break
-                    except:
+                    except Exception:
                         adawaystatus = Unknown_error
                         file.close()
                         break
@@ -331,12 +331,12 @@ if __name__ == "__main__":
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
                         file.close()
                         break
-                    except:
+                    except Exception:
                         adawaystatus = Unknown_error
                         file.close()
                         break
                     # Flush DNS
-                    os.system("ipconfig /flushdns")
+                    subprocess.call("ipconfig /flushdns", shell=False)
                     print(install_finish)
                     adawaystatus = adaway_on
                     break
@@ -355,18 +355,18 @@ if __name__ == "__main__":
                         adawaystatus = "Permission Error. Please restart program - hosts write error"
                         file.close()
                         break
-                    except:
+                    except Exception:
                         adawaystatus = "Unknown error"
                         file.close()
                         break
                     # Flush DNS
-                    os.system("ipconfig /flushdns")
+                    subprocess.call("ipconfig /flushdns", shell=False)
                     adawaystatus = adaway_off
                     break
 
             # Open hosts list
             elif choose == "4":
-                os.system(f"start {hostlist}")
+                subprocess.call(f"start {hostlist}", shell=False)
 
             # Exit
             elif choose == "5":
