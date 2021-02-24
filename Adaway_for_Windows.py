@@ -249,10 +249,8 @@ if __name__ == "__main__":
         file.write("# Adaway for Windows")
         file.close()
 
-        # Hosts Download
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(downloadhost())
-        loop.close
+        # Hosts Download                    
+        asyncio.run(downloadhost())
 
         file = open(TempHosts, "r", encoding = 'UTF-8')
         latesthosts = file.read()
