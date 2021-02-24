@@ -1,5 +1,7 @@
 # Adaway_for_Windows
 
+[![CodeFactor](https://www.codefactor.io/repository/github/newpremium/adaway_for_windows/badge/master)](https://www.codefactor.io/repository/github/newpremium/adaway_for_windows/overview/master)
+
 ## 다운로드
 
 [여기](https://github.com/NewPremium/Adaway_for_Windows/releases) 에서 프로그램 다운로드가 가능합니다.
