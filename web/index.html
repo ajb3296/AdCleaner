@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<title>Adaway for windows</title>
+
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+        <!-- 기본 메타 태그 -->
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Adaway For Windows">
+		<meta name="author" content="">
+
+        <!-- IE 미지원 -->
+		<script>
+			var agent = navigator.userAgent.toLowerCase();
+			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+				window.location.href="https://newpremium.github.io/IE_filtering/";
+			}
+		</script>
+
+
+		<!-- CDN CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+		<link href="https://startbootstrap.github.io/startbootstrap-scrolling-nav/css/scrolling-nav.css" rel="stylesheet">
+
+		<script type="text/javascript" src="/eel.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+		<link rel="stylesheet" href="css/style.css" type="text/css">
+
+		<!-- CDN SCRIPT -->
+		<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		<script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+
+		<!-- 관리자 권한 확인 -->
+		<!--
+		<script>
+			function adminchack_callback(admin_chack){
+				if(admin_chack == "no"){
+					alert('This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.');
+					eel.shutdown()
+					window.close();
+				}
+			}
+			eel.chackadmin()(adminchack_callback)
+
+			function internetchack_callback(internet_chack){
+				if (internet_chack == "no"){
+					alert('No internet connection detected. Please run the program again after you have the internet connection.');
+					eel.shutdown()
+					window.close();
+				}
+			}
+			eel.chackinternet()(internetchack_callback)
+		</script>
+	-->
+    </head>
+	<body>
+		<div class="container">
+			<div style="display: flex; justify-content: center; align-items: center; min-height: 90vh;">
+				<div style="padding: 2rem; border-radius: 1rem;">
+					<button id="main_box" name="main_box" onclick="clickMainButton()" style="background-color: #ffcccc;">
+						<h1 id="main_button_text" name="main_button_text">Chack update</h1> <!-- Chack update (blue) / Need update (orange)/ Off (gray) / On (green) -->
+					</button>
+				</div>
+			</div>
+			<br>
+
+		</div>
+		<div class="container">
+			<footer id ="footer">
+				<hr style="border: 0.5px solid rgba(255,255,255,.2)">
+				<p class="m-0">Software version : V.2.0<br>Copyright © 2021 <a id="footera" href='https://github.com/ajb3296/Adaway_for_Windows' target='_blank'>Adaway For Windows</a>. All rights reserved.</p>
+			</footer>
+		</div>
+	</body>
+</html>
