@@ -6,7 +6,7 @@
 
         <!-- 기본 메타 태그 -->
 		<meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="Adaway For Windows">
 		<meta name="author" content="">
@@ -19,9 +19,11 @@
 			}
 		</script>
 
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 		<script type="text/javascript" src="/eel.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
 		<link rel="stylesheet" href="css/style.css" type="text/css">
+		<link rel="stylesheet" href="css/loading.css" type="text/css">
 
 		<!-- 관리자 권한 확인 -->
 		<script>
@@ -43,25 +45,38 @@
 			}
 			eel.chackinternet()(internetchack_callback)
 		</script>
-
     </head>
 	<body>
+		<img src="img/logo.png" alt="Logo" id="logo_img"><h1>NTR your AD</h1>
 		<div class="container">
 			<div style="display: flex; justify-content: center; align-items: center; min-height: 90vh;">
 				<div style="padding: 2rem; border-radius: 1rem;">
-					<button id="main_box" name="main_box" onclick="clickMainButton()" style="background-color: #ffcccc;">
-						<h1 id="main_button_text" name="main_button_text">Chack update</h1> <!-- Chack update (blue) / Need update (orange)/ Off (gray) / On (green) -->
+					<button id="main_box" name="main_box" onclick="clickMainButton()" style="background-color: #aaff89;">
+						<!-- Check update - check_update
+						     Need update  - need_update
+							 Off          - off
+							 On           - on -->
+						<center>
+							<h1 id="main_button_text" name="main_button_text" data-value="check_update" style="display: block;">Check update</h1> <!-- Chack update (blue) / Need update (orange)/ Off (gray) / On (green) -->
+							
+							<!-- Loading -->
+							<svg id="loading" class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340" style="display: none;">
+								<circle cx="170" cy="170" r="160" stroke="#E2007C"/>
+								<circle cx="170" cy="170" r="135" stroke="#404041"/>
+								<circle cx="170" cy="170" r="110" stroke="#E2007C"/>
+								<circle cx="170" cy="170" r="85" stroke="#404041"/>
+						    </svg>
+						</center>
 					</button>
 				</div>
 			</div>
 			<br>
 
 		</div>
-		<div class="container">
-			<footer id ="footer">
-				<hr style="border: 0.5px solid rgba(255,255,255,.2)">
-				<p class="m-0">Software version : V.2.0<br>Copyright © 2021 <a id="footera" href='https://github.com/ajb3296/Adaway_for_Windows' target='_blank'>Adaway For Windows</a>. All rights reserved.</p>
-			</footer>
-		</div>
+		<footer id ="footer">
+			<hr style="border: 0.5px solid rgba(255,255,255,.2)">
+			<p class="m-0">Software version : V.2.0<br>Copyright © 2021 <a id="footera" href='https://github.com/ajb3296/Adaway_for_Windows' target='_blank'>Adaway For Windows</a>. All rights reserved.</p>
+		</footer>
+		<script type="text/javascript" src="js/script.js"></script>
 	</body>
 </html>

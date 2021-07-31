@@ -1,6 +1,5 @@
 https://adaway.org/hosts.txt
 https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
 https://someonewhocares.org/hosts/zero/hosts
-https://www.malwaredomainlist.com/hostslist/hosts.txt
 https://ajb3296.github.io/clean_internet/hosts.txt
 https://ajb3296.github.io/adaway_host/hosts.txt

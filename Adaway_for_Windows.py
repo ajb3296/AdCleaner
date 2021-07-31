@@ -9,37 +9,36 @@ import asyncio
 import platform
 import subprocess
 import urllib.request
-from urllib import parse
-
-#from config import main_path, port, title, black_list, log
 
 
 eel.init("web")
 
 async def download(url, loop):
     # Make file name
-    host_name = "%s.txt" %re.sub('[\/:*?" <> |.]', '', url).replace('\n', '')
-    print(f" : {url}")
+    host_name = "%s.txt" %re.sub('[\/:*?" <> |.]', '', url)
+    print(f"Downloading : {url}")
     try:
         await loop.run_in_executor(None, urllib.request.urlretrieve, url, "hosts/%s" %host_name)
     except Exception as a:
-        print(f"다운로드 실패 : {url}, {a}")
+        print(f"Download fail : {url}, {a}")
         return "fail"
     else:
-        print(f"다운로드 성공 : {url}")
+        print(f"Download success : {url}")
         return host_name
 
 async def downloadhost(urls, loop):
 
     fts = [asyncio.ensure_future(download(u, loop)) for u in urls]
-    r = await asyncio.gather(*fts)
+    host_name = await asyncio.gather(*fts)
+    
+    host_name = sorted(host_name)
 
     try:
         file = open(TempHosts, "a", encoding = 'UTF-8')
     except Exception:
         pass
 
-    for i in r:
+    for i in host_name:
         if not i == "fail":
             host = open("hosts/%s" %i, "r", encoding = 'UTF-8')
             data = host.read()
@@ -52,7 +51,7 @@ async def downloadhost(urls, loop):
     file.close()
 
 @eel.expose
-def chackupdate():
+def checkupdate():
 
     file = open(hostsfilepath, "r", encoding = 'UTF-8')
     hosts = file.read()
@@ -79,7 +78,7 @@ def chackupdate():
         l = f.readline()
         if not l:
             break
-        urls.append(l)
+        urls.append(l.replace("\n", ""))
     f.close()
 
     # Make hosts folder	
@@ -108,18 +107,22 @@ def chackupdate():
 
     # Set status
     if hosts == backup:
+        adawaystatus_code = "off"
         adawaystatus = "Off"
 
     elif hosts == latesthosts:
+        adawaystatus_code = "on"
         adawaystatus = "On"
 
     elif not hosts == latesthosts:
-        adawaystatus = "Need update"
+        adawaystatus_code = "need_update"
+        adawaystatus = "Need Update"
 
     else:
-        adawaystatus = "Status error"
+        adawaystatus_code = "error"
+        adawaystatus = "Error"
 
-    return adawaystatus
+    return [adawaystatus_code, adawaystatus]
 
 @eel.expose
 def adawayon():
@@ -129,7 +132,7 @@ def adawayon():
         latesthosts = file.read()
         file.close()
     except Exception:
-        status = "fail"
+        status = "Can't read the latest host file"
         file.close()
         return status
     # Write latest hosts in system hosts
@@ -138,11 +141,11 @@ def adawayon():
         file.write(latesthosts)
         file.close()
     except Exception:
-        status = "fail"
+        status = "Can't update the system host file"
         file.close()
         return status
     # Flush DNS
-    subprocess.call("ipconfig /flushdns", shell=False)
+    #subprocess.call("ipconfig /flushdns", shell=False)
     return "finish"
 
 @eel.expose
@@ -153,7 +156,7 @@ def adawayoff():
         backup = file.read()
         file.close()
     except Exception:
-        status = "fail"
+        status = "Can't open the backup hosts file"
         file.close()
         return status
     # Write hosts
@@ -162,38 +165,51 @@ def adawayoff():
         file.write(backup)
         file.close()
     except Exception:
-        status = "fail"
+        status = "Can't roll back the system host"
         file.close()
         return status
     # Flush DNS
-    subprocess.call("ipconfig /flushdns", shell=False)
+    #subprocess.call("ipconfig /flushdns", shell=False)
     return "finish"
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=
 
 @eel.expose
 def chackadmin():
-    # Chack admin permission
-    try:
-        admin_permission = ctypes.windll.shell32.IsUserAnAdmin()
-    except Exception:
-        admin_permission = False
-    if not admin_permission:
-        admin_chack = "no"
+    # Windows
+    if platform_sys == "Windows":
+        # Check admin permission
+        try:
+            admin_permission = ctypes.windll.shell32.IsUserAnAdmin()
+        except Exception:
+            admin_permission = False
+        if not admin_permission:
+            admin_chack = "no"
+        else:
+            admin_chack = "yes"
+    
+    # OSX, Linux
+    elif platform_sys == "Darwin" or platform_sys == "Linux":
+        if subprocess.check_output("whoami", shell=True, encoding='utf-8').replace("\n", "") == "root":
+            admin_chack = "yes"
+        else:
+            admin_chack = "no"
+
     else:
         admin_chack = "yes"
-    return admin_chack
+    #return admin_chack
+
+    # For test
+    return "yes"
 
 @eel.expose
 def chackinternet():
     try:
-        ipaddress = socket.gethostbyname(socket.gethostname())
-    except Exception:
-        ipaddress = "127.0.0.1"
-    if ipaddress == "127.0.0.1":
-        internet_chack = "no"
-    else:
+        socket.setdefaulttimeout(3)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(("8.8.8.8", 53))
         internet_chack = "yes"
+    except socket.error:
+        internet_chack = "no"
     return internet_chack
 
 @eel.expose
@@ -221,6 +237,9 @@ if __name__ == '__main__':
 
     elif platform_sys == "Windows":
         hostsfilepath = "C:\Windows\System32\drivers\etc\hosts"
+    
+    else:
+        exit()
 
     program_name = "Adaway for Windows"
 

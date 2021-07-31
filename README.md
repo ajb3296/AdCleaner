@@ -1,11 +1,10 @@
 # Adaway_for_Windows
 
-[![CodeFactor](https://www.codefactor.io/repository/github/ajb3296/adaway_for_windows/badge)](https://www.codefactor.io/repository/github/ajb3296/adaway_for_windows)
-![GitHub all releases](https://img.shields.io/github/downloads/ajb3296/Adaway_for_Windows/total?style=flat-square)
+[![CodeFactor](https://www.codefactor.io/repository/github/newpremium/adaway_for_windows/badge/master)](https://www.codefactor.io/repository/github/newpremium/adaway_for_windows/overview/master)
 
 ## 다운로드
 
-[여기](https://github.com/NewPremium/Adaway_for_Windows/releases) 에서 프로그램 다운로드가 가능합니다.
+[여기](https://github.com/ajb3296/Adaway_for_Windows/releases) 에서 프로그램 다운로드가 가능합니다.
 
 ## 주의사항
 

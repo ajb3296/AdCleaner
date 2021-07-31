@@ -15,6 +15,16 @@
   margin-bottom: 10px;
   text-align: center;
 }
+
+#logo_img {
+  border-radius: 150px;
+  position: relative;
+  display: table;
+  float: left;
+  width: 30px;
+  height: 30px;
+}
+
 #footer {
   clear: both;
   text-align: center;
@@ -81,7 +91,8 @@ button:hover {
   height: 300px;
   padding: 10px;
   text-align:center;
-  margin-bottom: 10px;}
+  margin-bottom: 10px;
+}
 
 .content {
   display: table-cell;
