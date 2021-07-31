@@ -197,10 +197,10 @@ def chackadmin():
 
     else:
         admin_chack = "yes"
-    #return admin_chack
+    return admin_chack
 
     # For test
-    return "yes"
+    #return "yes"
 
 @eel.expose
 def chackinternet():
