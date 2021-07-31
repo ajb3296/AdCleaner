@@ -1,6 +1,7 @@
 # Adaway_for_Windows
 
 [![CodeFactor](https://www.codefactor.io/repository/github/newpremium/adaway_for_windows/badge/master)](https://www.codefactor.io/repository/github/newpremium/adaway_for_windows/overview/master)
+![GitHub all releases](https://img.shields.io/github/downloads/ajb3296/Adaway_for_Windows/total?style=flat-square)
 
 ## 다운로드
 
