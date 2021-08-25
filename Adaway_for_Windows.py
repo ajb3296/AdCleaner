@@ -175,7 +175,7 @@ def adawayoff():
 # =-=-=-=-=-=-=-=-=-=-=-=-=
 
 @eel.expose
-def chackadmin():
+def checkadmin():
     # Windows
     if platform_sys == "Windows":
         # Check admin permission
@@ -184,33 +184,33 @@ def chackadmin():
         except Exception:
             admin_permission = False
         if not admin_permission:
-            admin_chack = "no"
+            admin_check = "no"
         else:
-            admin_chack = "yes"
+            admin_check = "yes"
     
     # OSX, Linux
     elif platform_sys == "Darwin" or platform_sys == "Linux":
         if subprocess.check_output("whoami", shell=True, encoding='utf-8').replace("\n", "") == "root":
-            admin_chack = "yes"
+            admin_check = "yes"
         else:
-            admin_chack = "no"
+            admin_check = "no"
 
     else:
-        admin_chack = "yes"
-    return admin_chack
+        admin_check = "yes"
+    return admin_check
 
     # For test
     #return "yes"
 
 @eel.expose
-def chackinternet():
+def checkinternet():
     try:
         socket.setdefaulttimeout(3)
         socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(("8.8.8.8", 53))
-        internet_chack = "yes"
+        internet_check = "yes"
     except socket.error:
-        internet_chack = "no"
-    return internet_chack
+        internet_check = "no"
+    return internet_check
 
 @eel.expose
 def shutdown():

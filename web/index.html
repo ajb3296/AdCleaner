@@ -11,14 +11,6 @@
 		<meta name="description" content="AdCleaner">
 		<meta name="author" content="">
 
-        <!-- IE 미지원 -->
-		<script>
-			var agent = navigator.userAgent.toLowerCase();
-			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
-				window.location.href="https://newpremium.github.io/IE_filtering/";
-			}
-		</script>
-
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 		<script type="text/javascript" src="/eel.js"></script>
@@ -27,23 +19,23 @@
 
 		<!-- 관리자 권한 확인 -->
 		<script>
-			function adminchack_callback(admin_chack){
-				if(admin_chack == "no"){
+			function admincheck_callback(admin_check){
+				if(admin_check == "no"){
 					alert('This program requires administrator privileges.\nPress Enter to run the program again with administrator privileges.');
 					eel.shutdown()
 					window.close();
 				}
 			}
-			eel.chackadmin()(adminchack_callback)
+			eel.checkadmin()(admincheck_callback)
 
-			function internetchack_callback(internet_chack){
-				if (internet_chack == "no"){
+			function internetcheck_callback(internet_check){
+				if (internet_check == "no"){
 					alert('No internet connection detected. Please run the program again after you have the internet connection.');
 					eel.shutdown()
 					window.close();
 				}
 			}
-			eel.chackinternet()(internetchack_callback)
+			eel.checkinternet()(internetcheck_callback)
 		</script>
     </head>
 	<body>
