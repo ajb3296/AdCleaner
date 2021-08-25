@@ -241,6 +241,6 @@ if __name__ == '__main__':
     else:
         exit()
 
-    program_name = "Adaway for Windows"
+    program_name = "AdCleaner"
 
     eel.start("index.html")
