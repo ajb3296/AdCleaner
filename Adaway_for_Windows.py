@@ -84,7 +84,7 @@ def checkupdate():
     # Make hosts folder	
     try:	
         shutil.rmtree('hosts')	
-    except FileNotFoundError:	
+    except FileNotFoundError:
         pass	
     os.mkdir("hosts")
 
