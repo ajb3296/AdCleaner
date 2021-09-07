@@ -72,7 +72,6 @@ button {
   padding: 5px 10px;
   position: relative;
   text-align: center;
-  display:inline-block;
 }
 
 button:hover {
