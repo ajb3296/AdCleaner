@@ -72,11 +72,17 @@ def checkupdate():
     backup = file.read()
     file.close()
 
-    with open(hostlist, "r", encoding = 'UTF-8') as hostlistdata:
-        urls = hostlistdata.split("\n")
+    urls = []
+    f = open(hostlist, 'r', encoding = 'UTF-8')
+    while True:
+        l = f.readline()
+        if not l:
+            break
+        urls.append(l.replace("\n", ""))
+    f.close()
 
-    # Make hosts folder	
-    try:	
+    # Make hosts folder
+    try:
         shutil.rmtree('hosts')
     except FileNotFoundError:
         pass
